@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>html5离线存储 | 锦鲤的小空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTML5 提供了强大的本地化功能，使 web 应用在离线或者网络情况较差的环境下依然能正常访问，HTML5 的本地化功能主要分为 OFFLINE (离线) 和 STORAGE （存储）。 STORAGE（存储）Cookie在HTML5以前我们会使用 cookie，在浏览器端缓存一些数据，例如：登录用户信息，历史搜索信息等等。但是cookie所支持的容量仅仅只有 4k ，也没有专门的api来操作，">
+<meta name="keywords" content="HTML5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html5离线存储">
+<meta property="og:url" content="https://myronliu.com/2016/05/30/html5/html5离线存储/index.html">
+<meta property="og:site_name" content="锦鲤的小空间">
+<meta property="og:description" content="HTML5 提供了强大的本地化功能，使 web 应用在离线或者网络情况较差的环境下依然能正常访问，HTML5 的本地化功能主要分为 OFFLINE (离线) 和 STORAGE （存储）。 STORAGE（存储）Cookie在HTML5以前我们会使用 cookie，在浏览器端缓存一些数据，例如：登录用户信息，历史搜索信息等等。但是cookie所支持的容量仅仅只有 4k ，也没有专门的api来操作，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://myronliu.com/images/storage.png">
+<meta property="og:image" content="https://myronliu.com/images/serverwoker.png">
+<meta property="og:updated_time" content="2018-11-25T06:42:51.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html5离线存储">
+<meta name="twitter:description" content="HTML5 提供了强大的本地化功能，使 web 应用在离线或者网络情况较差的环境下依然能正常访问，HTML5 的本地化功能主要分为 OFFLINE (离线) 和 STORAGE （存储）。 STORAGE（存储）Cookie在HTML5以前我们会使用 cookie，在浏览器端缓存一些数据，例如：登录用户信息，历史搜索信息等等。但是cookie所支持的容量仅仅只有 4k ，也没有专门的api来操作，">
+<meta name="twitter:image" content="https://myronliu.com/images/storage.png">
+  
+    <link rel="alternative" href="/atom.xml" title="锦鲤的小空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myron Liu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">低头努力，剩下的交给时光</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 18.33px;">HTML5</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/chai/" style="font-size: 10px;">chai</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/editorconfig/" style="font-size: 10px;">editorconfig</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/react-native/" style="font-size: 11.67px;">react-native</a> <a href="/tags/rollup/" style="font-size: 10px;">rollup</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/web-storage/" style="font-size: 10px;">web storage</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端工具/" style="font-size: 16.67px;">前端工具</a> <a href="/tags/前端工具-sublime/" style="font-size: 15px;">前端工具 sublime</a> <a href="/tags/移动web/" style="font-size: 13.33px;">移动web</a> <a href="/tags/移动端/" style="font-size: 16.67px;">移动端</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">luuman</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.devzeng.com/">曾静的博客</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.5udou.com/">豆米的博客</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">前端攻城狮，闲散人员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myron Liu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myron Liu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">低头努力，剩下的交给时光</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-html5/html5离线存储" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/30/html5/html5离线存储/" class="article-date">
+      <time datetime="2016-05-30T11:37:49.000Z" itemprop="datePublished">2016-05-30</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      html5离线存储
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>HTML5 提供了强大的本地化功能，使 web 应用在离线或者网络情况较差的环境下依然能正常访问，HTML5 的本地化功能主要分为 OFFLINE (离线) 和 STORAGE （存储）。</p>
+<h2 id="STORAGE（存储）"><a href="#STORAGE（存储）" class="headerlink" title="STORAGE（存储）"></a>STORAGE（存储）</h2><h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>在HTML5以前我们会使用 cookie，在浏览器端缓存一些数据，例如：登录用户信息，历史搜索信息等等。但是cookie所支持的容量仅仅只有 <strong>4k</strong> ，也没有专门的api来操作，只能依赖一些开源的库， 这里使用 <a href="https://github.com/ScottHamper/Cookies" target="_blank" rel="noopener">cookies.js</a> 存储和获取cookie信息</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一个cookie值</span></span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 链式调用</span></span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>).set(<span class="string">'hello'</span>, <span class="string">'world'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以额外设置一些参数</span></span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>, &#123; <span class="attr">domain</span>: <span class="string">'www.example.com'</span>, <span class="attr">secure</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置缓存时间</span></span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>, &#123; <span class="attr">expires</span>: <span class="number">600</span> &#125;); <span class="comment">// Expires in 10 minutes</span></span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>, &#123; <span class="attr">expires</span>: <span class="string">'01/01/2012'</span> &#125;);</span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>, &#123; <span class="attr">expires</span>: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2012</span>, <span class="number">0</span>, <span class="number">1</span>) &#125;);</span><br><span class="line">Cookies.set(<span class="string">'key'</span>, <span class="string">'value'</span>, &#123; <span class="attr">expires</span>: <span class="literal">Infinity</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">Cookies.get(<span class="string">'key'</span>);</span><br></pre></td></tr></table></figure>
+<p>由此可见用cookie存储有一下几个缺点:</p>
+<blockquote>
+<ol>
+<li>存储数据的量比较小</li>
+<li>本身没有方便的api对其进行操作</li>
+<li>cookie信息会在http请求时加入到请求头中，既不安全也增加了带宽。</li>
+</ol>
+</blockquote>
+<h3 id="WEB-Storage"><a href="#WEB-Storage" class="headerlink" title="WEB Storage"></a>WEB Storage</h3><p>HTML5 提拱更好的本地存储规范 <strong>localStorage</strong> 和 <strong>sessionStorage</strong> , 它们将数据存储在本地，而且在http请求时不会携带 Storage 里的信息, 使用方式也很简单:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(<span class="string">'key'</span>, <span class="string">'value'</span>);</span><br><span class="line">localStorage.getItem(<span class="string">'key'</span>);</span><br><span class="line">localStorage.removeItem(<span class="string">'key'</span>);</span><br><span class="line"></span><br><span class="line">sessionStorage.setItem(<span class="string">'key'</span>, <span class="string">'value'</span>);</span><br><span class="line">sessionStorage.getItem(<span class="string">'key'</span>);</span><br><span class="line">sessionStorage.removeItem(<span class="string">'key'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>sessionStorage</strong> 和 <strong>localStorage</strong> 使用方式及特性基本一致，唯一的区别是， sessionStorage 只在会话内有效，当浏览器窗口关闭，sessionStorage 缓存的数据会自动被清除， 而 localStorage 只要不手动清除，它会永久保存在本地。</p>
+<p>这里有张图片分析了 <strong>cookie</strong> 、 <strong>localStorage</strong> 、 <strong>sessionStorage</strong>  三者的区别</p>
+<p><img src="/images/storage.png" alt="storage"></p>
+<h2 id="OFFLINE（离线）"><a href="#OFFLINE（离线）" class="headerlink" title="OFFLINE（离线）"></a>OFFLINE（离线）</h2><p>为了让 <strong>webapp</strong> 拥有像 <strong>native app</strong> 一样的功能和体验， 在 HTML5的规范中加入了许多新的api， 让页面可以在离线环境下正常访问。 service worker 和 indexedDB 两者配合可以就可以开发离线使用的 webapp 了，由于 <strong>service worker</strong> 目前的兼容性不太好，这里我们写介绍下比较早的方案 <strong>application cache</strong> 。</p>
+<h3 id="service-worker"><a href="#service-worker" class="headerlink" title="service worker"></a>service worker</h3><p>Service Worker是基于Web Worker的事件驱动的，他们执行的机制都是新开一个线程去处理一些额外的，以前不能直接处理的任务。对于Web Worker，我们可以使用它来进行复杂的计算，因为它并不阻塞浏览器主线程的渲染。而Service Worker，我们可以用它来进行本地缓存，相当于一个本地的proxy。说起缓存，我们会想起我们常用的一些缓存技术来缓存我们的静态资源，但是老的方式是不支持调试的，灵活性不高。使用Service Worker来进行缓存，我们可以用javascript代码来拦截浏览器的http请求，并设置缓存的文件，直接返回，不经过web服务器，然后，做更多你想做的事情。</p>
+<p>因此，我们可以开发基于浏览器的离线应用。这使得我们的web应用减少对网络的依赖。例如，我们开发了一个新闻阅读的web应用，当你用手机浏览器在有网络的情况下打开时，你可以正常的获取新闻内容。可是，如果手机进入飞行模式，那这个应用你就没法使用了。</p>
+<p>如果我们使用了Service Worker做缓存，浏览器http请求会先经过Service Worker，通过url mapping去匹配，如果匹配到了，则使用缓存数据，如果匹配失败，则继续执行你指定的动作。一般情况下，匹配失败则让页面显示“网页无法打开”。</p>
+<h4 id="service-work-生命周期"><a href="#service-work-生命周期" class="headerlink" title="service work 生命周期"></a>service work 生命周期</h4><p><img src="/images/serverwoker.png" alt="serverwoke"></p>
+<h4 id="service-work-demo"><a href="#service-work-demo" class="headerlink" title="service work demo"></a>service work demo</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        navigator.serviceWorker.register(<span class="string">"/service-worker.js"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">serviceWorker</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">"success!"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在页面注册service-worker成功时就会调用这个js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.oninstall = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> resources = <span class="keyword">new</span> Cache();</span><br><span class="line">    <span class="keyword">var</span> visited = <span class="keyword">new</span> Cache();</span><br><span class="line">    <span class="comment">// Fetch them.</span></span><br><span class="line">    e.waitUntil(resources.add(</span><br><span class="line">        <span class="string">"/index.html"</span>,</span><br><span class="line">        <span class="string">"/fallback.html"</span>,</span><br><span class="line">        <span class="string">"/css/base.css"</span>,</span><br><span class="line">        <span class="string">"/js/app.js"</span>,</span><br><span class="line">        <span class="string">"/img/logo.png"</span></span><br><span class="line">    ).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Add caches to the global caches.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.all([</span><br><span class="line">            caches.set(<span class="string">"v1"</span>, resources),</span><br><span class="line">            caches.set(<span class="string">"visited"</span>, visited)</span><br><span class="line">        ]);</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.onfetch = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    e.respondWith(</span><br><span class="line">        <span class="comment">// Check to see if request is found in cache</span></span><br><span class="line">        caches.match(e.request).catch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// It's not? Prime the cache and return the response.</span></span><br><span class="line">            <span class="keyword">return</span> caches.get(<span class="string">"visited"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">visited</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> fetch(e.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">                    visited.put(e.request, response);</span><br><span class="line">                    <span class="comment">// Don't bother waiting, respond already.</span></span><br><span class="line">                    <span class="keyword">return</span> response;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// Connection is down? Simply fallback to a pre-cached page.</span></span><br><span class="line">            <span class="keyword">return</span> caches.match(<span class="string">"/fallback.html"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>service worker 采用事件监听机制， 上面的代码监听了 <strong>install</strong> 和 <strong>fetch</strong> 事件，当 <strong>server worker</strong> 安装成功后，调用此方法，然后缓存页面的资源文件， <strong>fetch</strong> 页面请求事件， server worker 拦截到用户请求，当发现请求文件命中缓存则从缓存中取得文件，返回给页面，无需经过服务器，借此达到离线的目的。</p>
+<p>当然 service worker 的功能远不止现在这些， 更多api，<a href="https://www.w3.org/TR/2014/WD-service-workers-20140508/" target="_blank" rel="noopener">请看这里</a></p>
+<h3 id="indexedDB"><a href="#indexedDB" class="headerlink" title="indexedDB"></a>indexedDB</h3><p>indexedDB 是一个用于本地存储数据的 nosql 数据库，拥有极快的数据查询速度，而且可以直接保存js 对象。相比web sql(sqlite)更加高效，包括索引、事务处理和健壮的查询功能。indexedDB特点：</p>
+<blockquote>
+<p>1.一个网站可能有一个或多个 IndexedDB 数据库，每个数据库必须具有惟一的名称。<br>2.一个数据库可包含一个或多个对象存储</p>
+</blockquote>
+<p>一个对象存储（由一个名称惟一标识）是一个记录集合。每个记录有一个键 和一个值。该值是一个对象，可拥有一个或多个属性。键可能基于某个键生成器，从一个键路径衍生出来，或者是显式设置。一个键生成器自动生成惟一的连续正整数。键路径定义了键值的路径。它可以是单个 JavaScript 标识符或多个由句点分隔的标识符。</p>
+<p>基本使用方式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> openRequest = indexedDB.open(<span class="string">"auto_people"</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">var</span> db; <span class="comment">//数据库对象</span></span><br><span class="line">openRequest.onupgradeneeded = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Running onupgradeeded..."</span>);</span><br><span class="line">	<span class="keyword">var</span> thisDB = e.target.result;</span><br><span class="line">	<span class="keyword">if</span>(!thisDB.objectStoreNames.contains(<span class="string">"people"</span>))&#123;</span><br><span class="line">			thisDB.createObjectStore(<span class="string">"people"</span>, &#123;<span class="attr">autoIncrement</span>:<span class="literal">true</span>&#125;); <span class="comment">//新建一个store并设置主键自增长</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建成功</span></span><br><span class="line">openRequest.onsuccess = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"success!"</span>);</span><br><span class="line">    db = e.target.result;</span><br><span class="line">	<span class="comment">//Listen for add clicks</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">openRequest.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"error!"</span>);</span><br><span class="line">	<span class="built_in">console</span>.dir(e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这应该站在别的地方处理，这是做一个代码展示</span></span><br><span class="line"><span class="keyword">var</span> transaction = db.transaction([<span class="string">'people'</span>], <span class="string">"readwrite"</span>); <span class="comment">//创建一个连接</span></span><br><span class="line"><span class="keyword">var</span> store = transaction.objectStore(<span class="string">"people"</span>);  <span class="comment">//获取store</span></span><br><span class="line"><span class="keyword">var</span> request = store.add(&#123;</span><br><span class="line">    name: <span class="string">'myron'</span>,</span><br><span class="line">    email: <span class="string">'test@qq.com'</span>,</span><br><span class="line">    created: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">&#125;); <span class="comment">//添加信息</span></span><br><span class="line"></span><br><span class="line">request.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">'error!'</span>);</span><br><span class="line">    <span class="built_in">console</span>.dir(e);</span><br><span class="line">&#125; <span class="comment">//当添加失败时调用</span></span><br><span class="line"></span><br><span class="line">request.onsuccess = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Did it!'</span>);</span><br><span class="line">&#125; <span class="comment">//添加成功时调用</span></span><br><span class="line"></span><br><span class="line">request = store.get(<span class="number">1</span>);  <span class="comment">//获取第一条数据</span></span><br><span class="line"></span><br><span class="line">request.onsuccess = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = e.target.result;</span><br><span class="line">    <span class="built_in">console</span>.dir(result);</span><br><span class="line">    <span class="keyword">if</span>(result)&#123;</span><br><span class="line">        <span class="comment">//拿到存储的对象</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="application-cache"><a href="#application-cache" class="headerlink" title="application cache"></a>application cache</h3><p>application cache 缓存应用文件的一种方案, 它可以本整个网页需要的资源文件（包括html）缓存在本地，当没有网络或者网络情况较差的时候，则使用本地的缓存文件来运行，使用方式也较为便利。</p>
+<h4 id="1-配置manifest文件"><a href="#1-配置manifest文件" class="headerlink" title="1. 配置manifest文件"></a>1. 配置manifest文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CACHE MANIFEST//必须以这个开头  </span><br><span class="line">version 1.0 //最好定义版本，更新的时候只需修改版本号  </span><br><span class="line">CACHE:    //定义需要魂村的文件</span><br><span class="line">    m.png  </span><br><span class="line">    test.js  </span><br><span class="line">    test.css  </span><br><span class="line">NETWORK:  //此部分下列出的文件是需要连接到服务器的白名单资源。无论用户是否处于离线状态，对这些资源的所有请求都会绕过缓存。可使用通配符。</span><br><span class="line">    *  </span><br><span class="line">FALLBACK  </span><br><span class="line">    404.html, 500.html   //，用于指定无法访问资源时的后备网页。其中第一个 URI 代表资源，第二个代表后备网页。两个 URI 必须相关，并且必须与清单文件同源。可使用通配符。</span><br></pre></td></tr></table></figure>
+<h4 id="2-在html中设置缓存"><a href="#2-在html中设置缓存" class="headerlink" title="2.在html中设置缓存"></a>2.在html中设置缓存</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"test.manifest"</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>AppCache Test<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"test.css"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"test.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-在服务器上设置-manifest-的-MIME-TYPE"><a href="#3-在服务器上设置-manifest-的-MIME-TYPE" class="headerlink" title="3.在服务器上设置 manifest 的 MIME-TYPE"></a>3.在服务器上设置 manifest 的 MIME-TYPE</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mime-mapping</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;<span class="name">extension</span>&gt;</span>manifest<span class="tag">&lt;/<span class="name">extension</span>&gt;</span>  </span><br><span class="line">       <span class="tag">&lt;<span class="name">mime-type</span>&gt;</span>text/cache-manifest<span class="tag">&lt;/<span class="name">mime-type</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">mime-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>application cache 虽然没有 service work 功能那么强大，但是在浏览器不支持 service work的情况下使用 application cache 也是个不错的方案。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/30/html5/html5离线存储/">html5离线存储</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Myron Liu 的个人博客">Myron Liu</a></p>
+        <p><span>发布时间:</span>2016年05月30日 - 19时37分</p>
+        <p><span>最后更新:</span>2018年11月25日 - 14时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/30/html5/html5离线存储/" title="html5离线存储">https://myronliu.com/2016/05/30/html5/html5离线存储/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://myronliu.com/2016/05/30/html5/html5离线存储/　　作者: Myron Liu" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/05/31/html5/html5设备api/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          html5设备api
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/29/html5/html5语义化标签/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTML5 语义化</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#STORAGE（存储）"><span class="toc-number">1.</span> <span class="toc-text">STORAGE（存储）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookie"><span class="toc-number">1.1.</span> <span class="toc-text">Cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB-Storage"><span class="toc-number">1.2.</span> <span class="toc-text">WEB Storage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OFFLINE（离线）"><span class="toc-number">2.</span> <span class="toc-text">OFFLINE（离线）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#service-worker"><span class="toc-number">2.1.</span> <span class="toc-text">service worker</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#service-work-生命周期"><span class="toc-number">2.1.1.</span> <span class="toc-text">service work 生命周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#service-work-demo"><span class="toc-number">2.1.2.</span> <span class="toc-text">service work demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#indexedDB"><span class="toc-number">2.2.</span> <span class="toc-text">indexedDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#application-cache"><span class="toc-number">2.3.</span> <span class="toc-text">application cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-配置manifest文件"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. 配置manifest文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-在html中设置缓存"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.在html中设置缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-在服务器上设置-manifest-的-MIME-TYPE"><span class="toc-number">2.3.3.</span> <span class="toc-text">3.在服务器上设置 manifest 的 MIME-TYPE</span></a></li></ol></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+<link rel="stylesheet" href="/css/gitment.min.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'html5离线存储', // 可选。默认为 location.href
+  owner: 'myronliu347',
+  repo: 'myronliu347.github.io',
+  oauth: {
+    client_id: '036f91611306aeb20459',
+    client_secret: '9ad4d0d67b4682bf95f705542c767d77867765ee',
+  },
+})
+gitment.render('comments')
+</script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/05/31/html5/html5设备api/" title="上一篇: html5设备api">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/05/29/html5/html5语义化标签/" title="下一篇: HTML5 语义化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/01/muse-ui/muse-model-desc/">简化 vuex 的状态管理方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/18/随笔/开源协议/">关于开源许可协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/移动web/runtime/">移动端页面多环境运行解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/移动web/css_harline/">移动web 1px边框解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/16/随笔/拖延症/">关于拖延症的一些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/vue/vue_webpack_boilerplate/">Vue webpack boilerplate 的一些捣腾</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/31/vue/vue_mixins_directive/">关于 Vue Mixin 和 Directive 的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/随笔/2016/">不断折腾的2016 | 掘金技术征文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/12/vue/muse_ui/">Muse UI — Vue2.0 和 Material Design 结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/26/wechat/wechat_start/">微信小程序开发初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/18/vue/vue_ripple/">vue 开发波纹点击特效组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vue/vue_layer/">关于 vue 弹窗组件的一些感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/01/移动web/mobile_css/">移动web开发中有用的css片段</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/21/javscript/ES6的二三事(二)－模块化/">ES6的二三事(二)-模块化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/javscript/ES6的二三事(一)/">ES6的二三事(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/node_npm_update/">node 和 npm 版本升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/前端工具/javascript_unit/">javascript单元测试实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/前端工具/2016-08-09/">npm 发布一个自己的包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/07/前端工具/2016-08-07/">使用 rollup 打包你的 ES6 代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/22/react-native/react-native_launch/">react-native 给android端设置启动图</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/react-native/react-native start/">react-native 开始走向mobile开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5网络连接/">html5网络连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5设备api/">html5设备api</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/html5/html5离线存储/">html5离线存储</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/html5/html5语义化标签/">HTML5 语义化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/webapp/webapp_dev2/">webapp 性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/webapp/webapp_dev1/">最简单的webapp开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/webapp/webapp_mobile_page/">关于webapp开发——移动端页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/js缓存封装/">js缓存封装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/前端工具/atom这个IDE有点酷/">atom这个IDE有点酷</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/05/editorconfig和Eslint规范代码编辑/">editorconfig和Eslint规范代码编辑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/javascript作用域和闭包/">javascript作用域与闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/如何写一个完善的jquery ui组件/">如何写一个完善的jquery ui组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/29/javscript/javascript数据驱动页面/">javascript数据驱动页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/24/hexo-coding搭建自己的博客/">hexo+coding搭建自己的博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/javscript/javascript面向对象编程/">javascript面向对象编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(二)--commonjs,AMD,CMD/">javascript模块化编程(二)--commonjs,AMD,CMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(一)/">javascript模块化编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-BFC和IFC/">css布局-BFC和IFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-盒模型，定位和浮动/">css布局-盒模型，定位和浮动</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/06/javscript/javascript类工厂构建/">javascript类工厂构建</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/前端seo优化/">前端seo优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/Yahoo军规/">前端代码规范(YaHoo军规)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/16/前端工具/sublime常用的插件介绍/">sublime常用的插件介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/javscript/javascript异步处理/">javascript异步处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/前端工具/sublime自定义代码提示/">sublime自定义代码提示</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime功能介绍/">sublime功能介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime常用快捷键/">sublime常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/javscript/javascript类型判断/">javascript类型判断</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/13/移动web/移动web开发准备工作/">移动web开发准备工作</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Myron Liu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

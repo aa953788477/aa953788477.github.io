@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>锦鲤的小空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="阳光的前段攻城狮">
+<meta name="keywords" content="Blog Vue">
+<meta property="og:type" content="website">
+<meta property="og:title" content="锦鲤的小空间">
+<meta property="og:url" content="https://myronliu.com/page/5/index.html">
+<meta property="og:site_name" content="锦鲤的小空间">
+<meta property="og:description" content="阳光的前段攻城狮">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="锦鲤的小空间">
+<meta name="twitter:description" content="阳光的前段攻城狮">
+  
+    <link rel="alternative" href="/atom.xml" title="锦鲤的小空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    
+    
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: true,
+          isPost: false,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myron Liu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">低头努力，剩下的交给时光</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 18.33px;">HTML5</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/chai/" style="font-size: 10px;">chai</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/editorconfig/" style="font-size: 10px;">editorconfig</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/react-native/" style="font-size: 11.67px;">react-native</a> <a href="/tags/rollup/" style="font-size: 10px;">rollup</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/web-storage/" style="font-size: 10px;">web storage</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端工具/" style="font-size: 16.67px;">前端工具</a> <a href="/tags/前端工具-sublime/" style="font-size: 15px;">前端工具 sublime</a> <a href="/tags/移动web/" style="font-size: 13.33px;">移动web</a> <a href="/tags/移动端/" style="font-size: 16.67px;">移动端</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">luuman</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.devzeng.com/">曾静的博客</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.5udou.com/">豆米的博客</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">前端攻城狮，闲散人员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myron Liu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myron Liu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">低头努力，剩下的交给时光</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-javscript/javascript类工厂构建" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/06/javscript/javascript类工厂构建/" class="article-date">
+      <time datetime="2015-12-06T14:43:00.000Z" itemprop="datePublished">2015-12-06</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/06/javscript/javascript类工厂构建/">javascript类工厂构建</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>下面的代码基于javascript原型继承设计，轻量，好用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> initializing = <span class="literal">false</span>,</span><br><span class="line">	fnTest = <span class="regexp">/xyz/</span>.test(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		xyz;</span><br><span class="line">	&#125;) ? <span class="regexp">/\b_super\b/</span> : <span class="regexp">/.*/</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Class = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">Class.extend = <span class="function"><span class="keyword">function</span>(<span class="params">prop</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> _super = <span class="keyword">this</span>.prototype;</span><br><span class="line">	initializing = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">var</span> prototype = <span class="keyword">new</span> <span class="keyword">this</span>();</span><br><span class="line">	initializing = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> name <span class="keyword">in</span> prop) &#123;</span><br><span class="line">		prototype[name] = <span class="keyword">typeof</span> prop[name] == <span class="string">"function"</span> &amp;&amp;</span><br><span class="line">			<span class="keyword">typeof</span> _super[name] == <span class="string">"function"</span> &amp;&amp; fnTest.test(prop[name]) ?</span><br><span class="line">			(<span class="function"><span class="keyword">function</span>(<span class="params">name, fn</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">					<span class="keyword">var</span> tmp = <span class="keyword">this</span>._super;</span><br><span class="line"></span><br><span class="line">					<span class="keyword">this</span>._super = _super[name];</span><br><span class="line"></span><br><span class="line">					<span class="keyword">var</span> ret = fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">					<span class="keyword">this</span>._super = tmp;</span><br><span class="line"></span><br><span class="line">					<span class="keyword">return</span> ret;</span><br><span class="line">				&#125;;</span><br><span class="line">			&#125;)(name, prop[name]) :</span><br><span class="line">			prop[name];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Class</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!initializing &amp;&amp; <span class="keyword">this</span>.init)</span><br><span class="line">			<span class="keyword">this</span>.init.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	Class.prototype = prototype;</span><br><span class="line">	Class.prototype.constructor = Class;</span><br><span class="line">	Class.extend = <span class="built_in">arguments</span>.callee;</span><br><span class="line">	<span class="keyword">return</span> Class;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>使用方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = Class.extend(&#123;</span><br><span class="line">    init :  <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'the class'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//B继承A</span></span><br><span class="line"><span class="keyword">var</span> B = A.extend(&#123;</span><br><span class="line">    init : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-移动web/前端seo优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/24/移动web/前端seo优化/" class="article-date">
+      <time datetime="2015-11-24T13:44:00.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/24/移动web/前端seo优化/">前端seo优化</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">核心心法：让小蜘蛛最快找到有用信息</span><br><span class="line">1. &lt;p&gt;&lt;br/&gt;&lt;/p&gt;很赞的写法 &lt;br/&gt;写在p内部</span><br><span class="line">2.外链 要加上 rel=“nofollow” 避免搜索引擎爬网爬跑掉其他网页去了</span><br><span class="line">3.&lt;a&gt;标签加title描述</span><br><span class="line">4.&lt;img&gt;标签加alt描述</span><br><span class="line">5.标签中的内容就是内容，不要加的代码，&amp;nbsp尽量设置padding/margin/缩进来实现效果</span><br><span class="line">a. &lt;title&gt; 关键词放前面；不重复；每个title不同；</span><br><span class="line">b. &lt;meta keywords&gt; 列出关键词即可，不需太多；</span><br><span class="line">c. &lt;meta description&gt; 高度概括网页内容，不需太多，每个页面不同；</span><br><span class="line">d. 语义化代码：</span><br><span class="line">aa. H1-H6 用于标题；</span><br><span class="line">bb. UL无序列表；</span><br><span class="line">cc. OL有序列表；</span><br><span class="line">dd. DL定义数据列表</span><br><span class="line">ee. em,strong 强调</span><br><span class="line">e. 优化：</span><br><span class="line">aa. &lt;a&gt; title/rel/</span><br><span class="line">bb. &lt;h1&gt; 正文标题一定用H1，副标题H2；</span><br><span class="line">cc. &lt;p&gt; &lt;br&gt;是文本内的换行；</span><br><span class="line">dd. &lt;caption&gt;表格标题；</span><br><span class="line">ee. &lt;img&gt; 加alt说明；</span><br><span class="line">ff. &lt;strong&gt;（高度重视） &lt;em&gt; （仅次于strong）&amp; &lt;b&gt;（不推荐） &lt;i&gt;</span><br><span class="line">gg. 重要HTML放在最前面；</span><br><span class="line">hh. 重要内容不用JS输出；</span><br><span class="line">ii. 少使用iframe框架；</span><br><span class="line">JJ. 谨慎使用display:none（使用z-index）;</span><br><span class="line">kk. 精简代码；</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-移动web/Yahoo军规" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/24/移动web/Yahoo军规/" class="article-date">
+      <time datetime="2015-11-24T13:43:00.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/24/移动web/Yahoo军规/">前端代码规范(YaHoo军规)</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>1.尽可能减少HTTP请求数（请求耗时）<br>2.使用CDN（内容分发网络）<br>3.添加Expire/Cache-Control头（缓存设置）<br>4.启用Gzip压缩（压缩css和js代码，混淆js代码）<br>5.把css放在页面最上面（方便加载渲染）<br>6.把script放在页面最下面（防止script代码影响页面展示）<br>7.避免在css中使用Expression<br>8.把JavaScript和css放在外部分文件中（js和css文件浏览器是自动缓存的不会重复加载）<br>9.减少DNS查询<br>10.避免重定向</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-前端工具/sublime常用的插件介绍" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/16/前端工具/sublime常用的插件介绍/" class="article-date">
+      <time datetime="2015-11-16T00:06:00.000Z" itemprop="datePublished">2015-11-16</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/16/前端工具/sublime常用的插件介绍/">sublime常用的插件介绍</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h2><p>包管理器，安装这个插件之后可以管理sublime的所有的扩展包的安装和卸载<br>安装方法如下，打开console窗口（CTRL+/views&gt;show console）将下面这段代码copy进去敲enter即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request,os,hashlib; h = &apos;2915d1851351e5ee549c20394736b442&apos; + &apos;8bc59f460fa1548d1514676163dafc88&apos;; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h)) if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by)</span><br></pre></td></tr></table></figure>
+<p>接下来得插件安装，</p>
+<ol>
+<li>打开命令面板ctrl+shift+p</li>
+<li>输入ip,enter</li>
+<li>输入插件名称敲击enter</li>
+</ol>
+<h2 id="Emmet"><a href="#Emmet" class="headerlink" title="Emmet"></a><a href="http://docs.emmet.io" target="_blank" rel="noopener">Emmet</a></h2><p>前身事大名鼎鼎的zen coding，仅仅需要一行代码就能快速生成html代码。简单的语法既可以生成负责html css代码(点击标题，可以学习emmet语法)，</p>
+<h2 id="SideBar-Enhancements"><a href="#SideBar-Enhancements" class="headerlink" title="SideBar Enhancements"></a>SideBar Enhancements</h2><p>这个插件改进了侧边栏，增加了许多功能：将文件移入回收站，在浏览器中浏览，将文件复制到剪切板。</p>
+<p><img src="/images/15-31-34.jpg" alt="15-31-34"></p>
+<h2 id="AutoFileName"><a href="#AutoFileName" class="headerlink" title="AutoFileName"></a>AutoFileName</h2><p>文件名称自动补全插件</p>
+<p><img src="/images/15-32-45.jpg" alt="15-32-45"></p>
+<h2 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h2><p>css3的语言环境，也会对一些css3的属性惊醒提示</p>
+<h2 id="DocBlockr"><a href="#DocBlockr" class="headerlink" title="DocBlockr"></a>DocBlockr</h2><p>文本注释插件，再js方法上敲击/**+ enter即可变成下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * [ description]</span><br><span class="line"> * @param  &#123;[type]&#125; item [description]</span><br><span class="line"> * @return &#123;[type]&#125;      [description]</span><br><span class="line"> */</span><br></pre></td></tr></table></figure></p>
+<h2 id="JsFormat"><a href="#JsFormat" class="headerlink" title="JsFormat"></a>JsFormat</h2><p>javascript格式化插件，安装之后选择文本ctrl+alt+f可以格式化指定文本</p>
+<h2 id="SublimeCodeIntel"><a href="#SublimeCodeIntel" class="headerlink" title="SublimeCodeIntel"></a>SublimeCodeIntel</h2><p>多种语言提示，代码自动补齐，快速跳转到变量定义，在状态栏显示函数快捷信息等<br>它支持的语言有：PHP, Python, RHTML, JavaScript, Smarty, Mason, Node.js, XBL, Tcl, HTML, HTML5, TemplateToolkit, XUL, Django, Perl, Ruby, Python3.</p>
+<h2 id="SublimeLinter"><a href="#SublimeLinter" class="headerlink" title="SublimeLinter"></a>SublimeLinter</h2><p>代码检查插件，可以提示你的编码错误，但是需要安装子包，例如<br>1.javascript语法检查 SublimeLinter-jshint这个包是必须得；<br>2.css语法检查 sublimeLinter-csslint</p>
+<p><img src="/images/15-43-40.jpg" alt="15-43-40"></p>
+<h2 id="SublimeLinter-csslint"><a href="#SublimeLinter-csslint" class="headerlink" title="SublimeLinter-csslint"></a>SublimeLinter-csslint</h2><p>配置sublimelinter，的css语法检查插件</p>
+<h2 id="SublimeLinter-jshint"><a href="#SublimeLinter-jshint" class="headerlink" title="SublimeLinter-jshint"></a>SublimeLinter-jshint</h2><p>配置sublimelinter，的js语法检查插件</p>
+<h2 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h2><p>HTML/XML 标签缩进、补全和校验；</p>
+<h2 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h2><p>打开控制台插件，安装后配置上下面的快捷键即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;keys&quot;: [&quot;command+shift+m&quot;], &quot;command&quot;: &quot;open_terminal&quot; &#125;,`</span><br></pre></td></tr></table></figure></p>
+<h2 id="TrailingSpaces"><a href="#TrailingSpaces" class="headerlink" title="TrailingSpaces"></a>TrailingSpaces</h2><p>多余空格标记插件，会标记每行多余的空格，加入下边的快捷键配置即可一次删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;keys&quot;: [&quot;command+shift+t&quot;], &quot;command&quot;: &quot;delete_trailing_spaces&quot; &#125;,</span><br></pre></td></tr></table></figure></p>
+<h2 id="主题包"><a href="#主题包" class="headerlink" title="主题包"></a>主题包</h2><p>sublime本身的外表就已经很好看了，如果大家对颜值有特殊要求的，可以<a href="http://www.techug.com/9-best-sublime-text-themes" target="_blank" rel="noopener">点击这里</a></p>
+<h2 id="各种framework包"><a href="#各种framework包" class="headerlink" title="各种framework包"></a>各种framework包</h2><ul>
+<li>jQuery jquery的代码补全包；</li>
+<li>Angular angular的代码补全及常用指令提示；</li>
+<li>less   less的环境高亮</li>
+<li>saas    sass的语法环境高亮，以及代码提示<br>….</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端工具-sublime/">前端工具 sublime</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javscript/javascript异步处理" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/15/javscript/javascript异步处理/" class="article-date">
+      <time datetime="2015-11-14T16:26:00.000Z" itemprop="datePublished">2015-11-15</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/15/javscript/javascript异步处理/">javascript异步处理</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>javascript是单线程语言，所谓”单线程”，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。<br>这种方式比较好控制，不会存在像java那个多线程死锁等等复杂的问题，缺点也很明显，当一个任务执行较长时间时，后续的任务需要等待，会拖延整个程序的执行，使浏览器卡死。<br>为了解决这个问题，javascript将任务分为两种：同步（Synchronous）和异步（Asynchronous）;<br>
+          
+      
+    </p></div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2015/11/15/javscript/javascript异步处理/#more">仔细看看 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-前端工具/sublime自定义代码提示" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/15/前端工具/sublime自定义代码提示/" class="article-date">
+      <time datetime="2015-11-14T16:05:00.000Z" itemprop="datePublished">2015-11-15</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/15/前端工具/sublime自定义代码提示/">sublime自定义代码提示</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="snippet"><a href="#snippet" class="headerlink" title="snippet"></a>snippet</h2><p>我们在编写代码的时候老是有些代码模板重复使用，常规的做法是copy过来，这种做法几位耗时间，这个时候snippet就来了，</p>
+<h3 id="1-Snippe创建-存储和格式"><a href="#1-Snippe创建-存储和格式" class="headerlink" title="1.Snippe创建,存储和格式"></a>1.Snippe创建,存储和格式</h3><p>Snippet文件是以.sublime-snippet为扩展的XML文件, 可以命名为XXX.sublime-snippet, 创建自己的snippet的方式为菜单栏Tools | New Snippet..<br>文件格式如果<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">snippet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>&lt;![CDATA[Type your snippet here]]&gt;<span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Tab trigger to activate the snippet --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tabTrigger</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">tabTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Scope the tab trigger will be active in --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>source.python<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Description to show in the menu --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>My Fancy Snippet<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>ps:存储在包目录下user目录下即可<br>简要介绍一下snippet四个组成部分:</p>
+<ul>
+<li>content:其中必须包含&lt;![CDATA[…]]&gt;,否则无法工作, Type your snippet here用来写你自己的代码片段</li>
+<li>tabTrigger:用来引发代码片段的字符或者字符串, 比如在以上例子上, 在编辑窗口输入hello然后按下tab就会在编辑器输出Type your snippet here这段代码片段</li>
+<li>scope: 表示你的代码片段会在那种语言环境下激活, 比如上面代码定义了source.python, 意思是这段代码片段会在python语言环境下激活.（html为 text.html js为source.js）</li>
+<li>description :展示代码片段的描述, 如果不写的话, 默认使用代码片段的文件名作为描述,会在提示时显示</li>
+</ul>
+<h3 id="2-snippet环境变量"><a href="#2-snippet环境变量" class="headerlink" title="2. snippet环境变量"></a>2. snippet环境变量</h3><p>列举一下可能用到的环境变量, 这些环境变量是在Sublime中已经预定义的.<br>$TM_FILENAME 用户文件名<br>$TM_FILEPATH 用户文件全路径<br>$TM_FULLNAME    用户的用户名<br>$TM_LINE_INDEX    插入多少列, 默认为0<br>$TM_LINE_NUMBER    一个snippet插入多少行<br>$TM_SOFT_TABS    如果设置translate_tabs_to_spaces : true 则为Yes<br>$TM_TAB_SIZE    每个Tab包含几个空格<br>同一通过下面的代码片段进行验证:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">snippet</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">content</span>&gt;</span>&lt;![CDATA[</span><br><span class="line">=================================</span><br><span class="line">$TM_FILENAME   用户文件名</span><br><span class="line">$TM_FILEPATH   用户文件全路径</span><br><span class="line">$TM_FULLNAME    用户的用户名</span><br><span class="line">$TM_LINE_INDEX   插入多少列, 默认为0</span><br><span class="line">$TM_LINE_NUMBER   一个snippet插入多少行</span><br><span class="line">$TM_SOFT_TABS  如果设置translate_tabs_to_spaces : true 则为Yes</span><br><span class="line">$TM_TAB_SIZE   每个Tab包含几个空格</span><br><span class="line">=================================</span><br><span class="line">]]&gt;<span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tabTrigger</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">tabTrigger</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>source.python<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">snippet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>验证方式 : 保存自定义snippet,在python文件夹下输入hello按下tab</p>
+<h3 id="指定光标位置和选中值"><a href="#指定光标位置和选中值" class="headerlink" title="指定光标位置和选中值"></a>指定光标位置和选中值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;snippet&gt;</span><br><span class="line">	&lt;content&gt;&lt;![CDATA[</span><br><span class="line">Hello, $&#123;1:this&#125; is a $&#123;2:snippet&#125;.</span><br><span class="line">]]&gt;&lt;/content&gt;</span><br><span class="line">	&lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span><br><span class="line">	&lt;tabTrigger&gt;hello&lt;/tabTrigger&gt;</span><br><span class="line">	&lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span><br><span class="line">	&lt;scope&gt;text.html&lt;/scope&gt;</span><br><span class="line">&lt;/snippet&gt;</span><br></pre></td></tr></table></figure>
+<p>完成后再html文件中敲下hello然后tab，便可以看到光标选中this的问着在此tab光标选中snippet,1、2代表了选中的顺序如果有两个$1会自动进入多点编辑模式</p>
+<h2 id="Completions"><a href="#Completions" class="headerlink" title="Completions"></a>Completions</h2><p>上面的提示方法虽然好但是呢，每个提示都要建一个文件，太麻烦了，如果这是代码方法或者长单词提示这种方法就不太好了，这个时候我们可以定义completions,<br>文件格式如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"scope"</span>: <span class="string">"text.html - source - meta.tag, punctuation.definition.tag.begin"</span>,</span><br><span class="line"></span><br><span class="line">   <span class="attr">"completions"</span>:</span><br><span class="line">   [</span><br><span class="line">      &#123; <span class="attr">"trigger"</span>: <span class="string">"hello"</span>, <span class="attr">"contents"</span>: <span class="string">"hello word"</span> &#125;,</span><br><span class="line">      &#123;<span class="attr">"trigger"</span>: <span class="string">"this is"</span>, <span class="attr">"contents"</span>:<span class="string">"this is $1"</span>&#125;</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>存储格式为.sublime-completions<br>同样的是放在user目录下<br>参数解释：<br>scope：作用域与snippet中一致<br>trigger: 触发词<br>contents: 内容定义<br>$ : 这个定义光标位置与snippet一致</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>snippet适用于大段代码提示，completions适用于小段代码提示，都非常好用，快去自定义一套适合自己打代码提示吧！</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="http://ju.outofmemory.cn/entry/105183" target="_blank" rel="noopener">手把手教你写Sublime中的Snippet</a></li>
+<li><a href="http://docs.sublimetext.info/en/latest/reference/completions.html" target="_blank" rel="noopener">sublime completions</a></li>
+<li><a href="http://docs.sublimetext.info/en/latest/extensibility/snippets.html" target="_blank" rel="noopener">sublime snippets</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端工具-sublime/">前端工具 sublime</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-前端工具/sublime功能介绍" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/14/前端工具/sublime功能介绍/" class="article-date">
+      <time datetime="2015-11-14T10:07:00.000Z" itemprop="datePublished">2015-11-14</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/14/前端工具/sublime功能介绍/">sublime功能介绍</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>sublime是一个小巧，功能又十分强大得文本编辑器，下面就来介绍下它的几个强大的工恩呢刚</p>
+<h2 id="快速文件查找"><a href="#快速文件查找" class="headerlink" title="快速文件查找"></a>快速文件查找</h2><p>sublime上 CTRL+P可以查找文件，只用输入其中几个关键字便可找到</p>
+<p><img src="/images/23-47-25.jpg" alt="23-47-25"></p>
+<p>另外输入在后面加上#可以并查找文件中的内容，确定后打开文件后跳到指定内容位置</p>
+<p><img src="/images/23-49-59.jpg" alt="23-49-59"></p>
+<p>后面加上@+方法名 可以打开文件兵跳转到指定方法行</p>
+<p><img src="/images/23-51-29.jpg" alt="23-51-29"></p>
+<p>最后输入：1334可以跳到指定行</p>
+<h2 id="多点编辑模式"><a href="#多点编辑模式" class="headerlink" title="多点编辑模式"></a>多点编辑模式</h2><p>sublime中按住CRTL建然后在不同位置点击鼠标左键可进入多点编辑模式，另外CTRL+D多次使用可以选取相同字符并自动进入多点编辑模式，非常好用</p>
+<p><img src="/images/23-55-11.jpg" alt="23-55-11"></p>
+<h2 id="命令面板"><a href="#命令面板" class="headerlink" title="命令面板"></a>命令面板</h2><p>假设一个场景，我想把侧边栏收起来，但是又不记得快捷键，这个时候命令面板就起作用了，打开命令面板<strong>CRTL+SHIFT+P</strong>，输入toggle side bar然后enter这样就可以了，sublime中所有的操作都可以再命令面板中找到，让大家告别无聊的鼠标</p>
+<p><img src="/images/00-00-09.jpg" alt="00-00-09"></p>
+<h2 id="灵活的配置和自定制"><a href="#灵活的配置和自定制" class="headerlink" title="灵活的配置和自定制"></a>灵活的配置和自定制</h2><p>sublime中所有的配置都是再json文件中设置，一般有连个default和user我们如果要修改某些配置，只需要再user文件中修改，会自动覆盖default的配置，sublime有许许多多的插件，只要花点心思找些插件包，便可以配置成一个符合你习惯的完美的编辑器</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端工具-sublime/">前端工具 sublime</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-前端工具/sublime常用快捷键" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/14/前端工具/sublime常用快捷键/" class="article-date">
+      <time datetime="2015-11-14T09:32:00.000Z" itemprop="datePublished">2015-11-14</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/14/前端工具/sublime常用快捷键/">sublime常用快捷键</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##基础快捷键<br>Ctrl+Shift+P：打开命令面板<br>Ctrl+P：搜索项目中的文件<br>Ctrl+G：跳转到第几行<br>Ctrl+W：关闭当前打开文件<br>Ctrl+Shift+W：关闭所有打开文件<br>Ctrl+Shift+V：粘贴并格式化<br>Ctrl+D：选择单词，重复可增加选择下一个相同的单词<br>Ctrl+L：选择行，重复可依次增加选择下一行<br>Ctrl+Shift+L：选择多行<br>Ctrl+Shift+Enter：在当前行前插入新行<br>Ctrl+X：删除当前行<br>Ctrl+M：跳转到对应括号<br>Ctrl+U：软撤销，撤销光标位置<br>Ctrl+J：合并为一行<br>Ctrl+F：查找内容<br>Ctrl+Shift+F：查找并替换<br>Ctrl+H：替换<br>Ctrl+R：查找method<br>Ctrl+N：新建窗口<br>Ctrl+K+B：开关侧栏<br>Ctrl+Shift+M：选中当前括号内容，重复可选着括号本身<br>Ctrl+F2：设置/删除标记<br>Ctrl+/：注释当前行<br>Ctrl+Shift+/：当前位置插入注释<br>Ctrl+Alt+/：块注释，并Focus到首行，写注释说明用的<br>Ctrl+Shift+A：选择当前标签前后，修改标签用的<br>F11：全屏<br>Shift+F11：全屏免打扰模式，只编辑当前文件<br>Alt+F3：选择所有相同的词<br>Alt+.：闭合标签<br>Alt+Shift+数字：分屏显示<br>Alt+数字：切换打开第N个文件<br>Shift+右键拖动：光标多不，用来更改或插入列内容<br>鼠标的前进后退键可切换Tab文件<br>按Ctrl，依次点击或选取，可需要编辑的多个位置<br>按Ctrl+Shift+上下键，可替换行</p>
+<p>##选择类<br>Ctrl+D 选中光标所占的文本，继续操作则会选中下一个相同的文本。<br>Alt+F3 选中文本按下快捷键，即可一次性选择全部的相同文本进行同时编辑。举个栗子：快速选中并更改所有相同的变量名、函数名等。<br>Ctrl+L 选中整行，继续操作则继续选择下一行，效果和 Shift+↓ 效果一样。<br>Ctrl+Shift+L 先选中多行，再按下快捷键，会在每行行尾插入光标，即可同时编辑这些行。<br>Ctrl+Shift+M 选择括号内的内容（继续选择父括号）。举个栗子：快速选中删除函数中的代码，重写函数体代码或重写括号内里的内容。<br>Ctrl+M 光标移动至括号内结束或开始的位置。<br>Ctrl+Enter 在下一行插入新行。举个栗子：即使光标不在行尾，也能快速向下插入一行。<br>Ctrl+Shift+Enter 在上一行插入新行。举个栗子：即使光标不在行首，也能快速向上插入一行。<br>Ctrl+Shift+[ 选中代码，按下快捷键，折叠代码。<br>Ctrl+Shift+] 选中代码，按下快捷键，展开代码。<br>Ctrl+K+0 展开所有折叠代码。<br>Ctrl+← 向左单位性地移动光标，快速移动光标。<br>Ctrl+→ 向右单位性地移动光标，快速移动光标。<br>shift+↑ 向上选中多行。<br>shift+↓ 向下选中多行。<br>Shift+← 向左选中文本。<br>Shift+→ 向右选中文本。<br>Ctrl+Shift+← 向左单位性地选中文本。<br>Ctrl+Shift+→ 向右单位性地选中文本。<br>Ctrl+Shift+↑ 将光标所在行和上一行代码互换（将光标所在行插入到上一行之前）。<br>Ctrl+Shift+↓ 将光标所在行和下一行代码互换（将光标所在行插入到下一行之后）。<br>Ctrl+Alt+↑ 向上添加多行光标，可同时编辑多行。<br>Ctrl+Alt+↓ 向下添加多行光标，可同时编辑多行。</p>
+<p>##编辑类<br>Ctrl+J 合并选中的多行代码为一行。举个栗子：将多行格式的CSS属性合并为一行。<br>Ctrl+Shift+D 复制光标所在整行，插入到下一行。<br>Tab 向右缩进。<br>Shift+Tab 向左缩进。<br>Ctrl+K+K 从光标处开始删除代码至行尾。<br>Ctrl+Shift+K 删除整行。<br>Ctrl+/ 注释单行。<br>Ctrl+Shift+/ 注释多行。<br>Ctrl+K+U 转换大写。<br>Ctrl+K+L 转换小写。<br>Ctrl+Z 撤销。<br>Ctrl+Y 恢复撤销。<br>Ctrl+U 软撤销，感觉和 Gtrl+Z 一样。<br>Ctrl+F2 设置书签<br>Ctrl+T 左右字母互换。<br>F6 单词检测拼写<br>搜索类<br>Ctrl+F 打开底部搜索框，查找关键字。<br>Ctrl+shift+F 在文件夹内查找，与普通编辑器不同的地方是sublime允许添加多个文件夹进行查找，查找结果双击进入略高端，未研究。<br>Ctrl+P 打开搜索框。举个栗子：1、输入当前项目中的文件名，快速搜索文件，2、输入@和关键字，查找文件中函数名，3、输入：和数字，跳转到文件中该行代码，4、输入#和关键字，查找变量名。<br>Ctrl+G 打开搜索框，自动带：，输入数字跳转到该行代码。举个栗子：在页面代码比较长的文件中快速定位。<br>Ctrl+R 打开搜索框，自动带@，输入关键字，查找文件中的函数名。举个栗子：在函数较多的页面快速查找某个函数。<br>Ctrl+： 打开搜索框，自动带#，输入关键字，查找文件中的变量名、属性名等。<br>Ctrl+Shift+P 打开命令框。场景栗子：打开命名框，输入关键字，调用sublime text或插件的功能，例如使用package安装插件。<br>Esc 退出光标多行选择，退出搜索框，命令框等。</p>
+<p>##显示类<br>Ctrl+Tab 按文件浏览过的顺序，切换当前窗口的标签页。<br>Ctrl+PageDown 向左切换当前窗口的标签页。<br>Ctrl+PageUp 向右切换当前窗口的标签页。<br>Alt+Shift+1 窗口分屏，恢复默认1屏（非小键盘的数字）<br>Alt+Shift+2 左右分屏-2列<br>Alt+Shift+3 左右分屏-3列<br>Alt+Shift+4 左右分屏-4列<br>Alt+Shift+5 等分4屏<br>Alt+Shift+8 垂直分屏-2屏<br>Alt+Shift+9 垂直分屏-3屏<br>Ctrl+K+B 开启/关闭侧边栏。</p>
+<p>##F11 全屏模式<br>Shift+F11 免打扰模式<br>注意:<br>以上都是window下得快捷键，mac osc下会略有不同</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端工具-sublime/">前端工具 sublime</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javscript/javascript类型判断" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/09/javscript/javascript类型判断/" class="article-date">
+      <time datetime="2015-11-09T09:26:00.000Z" itemprop="datePublished">2015-11-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/09/javscript/javascript类型判断/">javascript类型判断</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="判断String类型"><a href="#判断String类型" class="headerlink" title="判断String类型"></a>判断String类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isString</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> value === <span class="string">'string'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="判断Number类型"><a href="#判断Number类型" class="headerlink" title="判断Number类型"></a>判断Number类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> value === <span class="string">'number'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="判断function"><a href="#判断function" class="headerlink" title="判断function"></a>判断function</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFunction</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> value === <span class="string">'function'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="判断正则表达式类型"><a href="#判断正则表达式类型" class="headerlink" title="判断正则表达式类型"></a>判断正则表达式类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isRegExp</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> toString.call(value) === <span class="string">'[object RegExp]'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="判断是否是对象"><a href="#判断是否是对象" class="headerlink" title="判断是否是对象"></a>判断是否是对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> value === <span class="string">'object'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="判断是否是Object的对象"><a href="#判断是否是Object的对象" class="headerlink" title="判断是否是Object的对象"></a>判断是否是Object的对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isBlankObject</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> value !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> value === <span class="string">'object'</span> &amp;&amp; !     getPrototypeOf(value);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.toString.apply(arr) === <span class="string">'[object Array]'</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-移动web/移动web开发准备工作" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/13/移动web/移动web开发准备工作/" class="article-date">
+      <time datetime="2015-10-13T11:00:00.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/移动web/移动web开发准备工作/">移动web开发准备工作</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="meta设置"><a href="#meta设置" class="headerlink" title="meta设置"></a>meta设置</h2><h3 id="html5移动端页面窗口自适应设备宽度，防止用户缩放页面"><a href="#html5移动端页面窗口自适应设备宽度，防止用户缩放页面" class="headerlink" title="html5移动端页面窗口自适应设备宽度，防止用户缩放页面"></a>html5移动端页面窗口自适应设备宽度，防止用户缩放页面</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="忽略将页面中的数字识别为电话号码"><a href="#忽略将页面中的数字识别为电话号码" class="headerlink" title="忽略将页面中的数字识别为电话号码"></a>忽略将页面中的数字识别为电话号码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span> <span class="attr">content</span>=<span class="string">"telephone=no"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="忽略Android平台中对邮箱地址的识别"><a href="#忽略Android平台中对邮箱地址的识别" class="headerlink" title="忽略Android平台中对邮箱地址的识别"></a>忽略Android平台中对邮箱地址的识别</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span> <span class="attr">content</span>=<span class="string">"email=no"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari，将网站添加到主屏幕快速启动方式，"><a href="#当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari，将网站添加到主屏幕快速启动方式，" class="headerlink" title="当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari，将网站添加到主屏幕快速启动方式，"></a>当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari，将网站添加到主屏幕快速启动方式，</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="完整的html模板"><a href="#完整的html模板" class="headerlink" title="完整的html模板"></a>完整的html模板</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"</span> <span class="attr">name</span>=<span class="string">"viewport"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"yes"</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"black"</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"telephone=no"</span> <span class="attr">name</span>=<span class="string">"format-detection"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"email=no"</span> <span class="attr">name</span>=<span class="string">"format-detection"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"index.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">这里开始内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="css-reset内容"><a href="#css-reset内容" class="headerlink" title="css reset内容"></a>css reset内容</h2><p>在移动端中需要对浏览器做一些特殊的处理，以保证样式的一致性。<br>首先我们导入<a href="http://necolas.github.io/normalize.css/" target="_blank" rel="noopener">Normalize.css</a>的代码，让后再加上移动端的特殊处理.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:Helvetica;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">10px</span>;<span class="comment">/*设置10px为1em*/</span></span><br><span class="line">    <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0,0,0,0);<span class="comment">/*去掉触摸遮盖层*/</span></span><br><span class="line">    <span class="attribute">-webkit-user-modify</span>:read-write-plaintext-only;</span><br><span class="line">    <span class="attribute">-webkit-user-select</span>: none;<span class="comment">/*禁止用户选择文字*/</span></span><br><span class="line">	<span class="attribute">-webkit-overflow-scrolling</span>: touch;<span class="comment">/*滚动touch*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*设置所有的盒子元素*/</span></span><br><span class="line">*&#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="css技巧"><a href="#css技巧" class="headerlink" title="css技巧"></a>css技巧</h2><h3 id="消除闪屏"><a href="#消除闪屏" class="headerlink" title="消除闪屏"></a>消除闪屏</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*设置内嵌的元素在 3D 空间如何呈现：保留 3D*/</span></span><br><span class="line"><span class="selector-tag">-webkit-transform-style</span>: <span class="selector-tag">preserve-3d</span>;</span><br><span class="line"><span class="comment">/*（设置进行转换的元素的背面在面对用户时是否可见：隐藏）*/</span></span><br><span class="line"><span class="selector-tag">-webkit-backface-visibility</span>: <span class="selector-tag">hidden</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:before</span>,</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">'\0020'</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">    <span class="attribute">visibility</span>: hidden;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123; <span class="attribute">clear</span>: both &#125;</span><br><span class="line">.clearfix &#123; *zoom: 1 &#125;</span><br></pre></td></tr></table></figure>
+<p>###部分android系统中元素被点击时产生的边框怎么去掉<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>,<span class="selector-tag">button</span>,<span class="selector-tag">input</span>,<span class="selector-tag">textarea</span>&#123;</span><br><span class="line"><span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0,0,0,0;)</span><br><span class="line">-webkit-user-modify:read-write-plaintext-only;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="开启硬件加速"><a href="#开启硬件加速" class="headerlink" title="开启硬件加速"></a>开启硬件加速</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.css</span> &#123;</span><br><span class="line">   <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-moz-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">-ms-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">   <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如何阻止windows-Phone的默认触摸事件"><a href="#如何阻止windows-Phone的默认触摸事件" class="headerlink" title="如何阻止windows Phone的默认触摸事件"></a>如何阻止windows Phone的默认触摸事件</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;<span class="attribute">-ms-touch-action</span>: none;&#125;<span class="comment">/* 禁止winphone默认触摸事件 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="js注意的地方"><a href="#js注意的地方" class="headerlink" title="js注意的地方"></a>js注意的地方</h2><ul>
+<li>移动端上的点击事件会延迟300ms，可以使用touchstart代替（一般使用fastclick库）</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    </nav>
+  
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Myron Liu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

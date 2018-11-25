@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>html5网络连接 | 锦鲤的小空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="XMLHttpRequest Level 2XMLHttpRequest Level 2 对于 老版本的XMLHttpRequest对象 功能的一个补全，这里我们先看下老版本的XMLHttpRequest对象的缺点   只支持文本数据的传送，无法用来读取和上传二进制文件。 传送和接收数据时，没有进度信息，只能提示有没有完成。 受到”同域限制”（Same Origin Policy），只能向同一域名">
+<meta name="keywords" content="HTML5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html5网络连接">
+<meta property="og:url" content="https://myronliu.com/2016/05/31/html5/html5网络连接/index.html">
+<meta property="og:site_name" content="锦鲤的小空间">
+<meta property="og:description" content="XMLHttpRequest Level 2XMLHttpRequest Level 2 对于 老版本的XMLHttpRequest对象 功能的一个补全，这里我们先看下老版本的XMLHttpRequest对象的缺点   只支持文本数据的传送，无法用来读取和上传二进制文件。 传送和接收数据时，没有进度信息，只能提示有没有完成。 受到”同域限制”（Same Origin Policy），只能向同一域名">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-25T06:42:51.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html5网络连接">
+<meta name="twitter:description" content="XMLHttpRequest Level 2XMLHttpRequest Level 2 对于 老版本的XMLHttpRequest对象 功能的一个补全，这里我们先看下老版本的XMLHttpRequest对象的缺点   只支持文本数据的传送，无法用来读取和上传二进制文件。 传送和接收数据时，没有进度信息，只能提示有没有完成。 受到”同域限制”（Same Origin Policy），只能向同一域名">
+  
+    <link rel="alternative" href="/atom.xml" title="锦鲤的小空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myron Liu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">低头努力，剩下的交给时光</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 18.33px;">HTML5</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/chai/" style="font-size: 10px;">chai</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/editorconfig/" style="font-size: 10px;">editorconfig</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/react-native/" style="font-size: 11.67px;">react-native</a> <a href="/tags/rollup/" style="font-size: 10px;">rollup</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/web-storage/" style="font-size: 10px;">web storage</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端工具/" style="font-size: 16.67px;">前端工具</a> <a href="/tags/前端工具-sublime/" style="font-size: 15px;">前端工具 sublime</a> <a href="/tags/移动web/" style="font-size: 13.33px;">移动web</a> <a href="/tags/移动端/" style="font-size: 16.67px;">移动端</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">luuman</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.devzeng.com/">曾静的博客</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.5udou.com/">豆米的博客</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">前端攻城狮，闲散人员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myron Liu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myron Liu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">低头努力，剩下的交给时光</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-html5/html5网络连接" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/31/html5/html5网络连接/" class="article-date">
+      <time datetime="2016-05-31T04:05:05.000Z" itemprop="datePublished">2016-05-31</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      html5网络连接
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="XMLHttpRequest-Level-2"><a href="#XMLHttpRequest-Level-2" class="headerlink" title="XMLHttpRequest Level 2"></a>XMLHttpRequest Level 2</h2><p>XMLHttpRequest Level 2 对于 老版本的XMLHttpRequest对象 功能的一个补全，这里我们先看下老版本的XMLHttpRequest对象的缺点</p>
+<blockquote>
+<ul>
+<li>只支持文本数据的传送，无法用来读取和上传二进制文件。</li>
+<li>传送和接收数据时，没有进度信息，只能提示有没有完成。</li>
+<li>受到”同域限制”（Same Origin Policy），只能向同一域名的服务器请求数据</li>
+</ul>
+</blockquote>
+<p>而新版的 XMLHttpRequest 增加了更多的功能</p>
+<blockquote>
+<ul>
+<li>可以设置HTTP请求的时限。</li>
+<li>可以使用FormData对象管理表单数据。</li>
+<li>可以上传文件。</li>
+<li>可以请求不同域名下的数据（跨域请求）。</li>
+<li>可以获取服务器端的二进制数据。</li>
+<li>可以获得数据传输的进度信息。</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h3 id="设置请求时限"><a href="#设置请求时限" class="headerlink" title="设置请求时限"></a>设置请求时限</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　xhr.timeout = <span class="number">3000</span>;</span><br><span class="line">xhr.ontimeout = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">　　　　alert(<span class="string">'请求超时！'</span>);</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
+<p>目前，Opera、Firefox和IE 10支持该属性，IE 8和IE 9的这个属性属于XDomainRequest对象，而Chrome和Safari还不支持。</p>
+<h3 id="FormData-上传文件"><a href="#FormData-上传文件" class="headerlink" title="FormData 上传文件"></a>FormData 上传文件</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"video/*"</span> <span class="attr">onchange</span>=<span class="string">"fileUpload(this.files[0])"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">fileUpload</span>(<span class="params">file</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span></span><br><span class="line"><span class="javascript">        formData.append(<span class="string">"glbh"</span>, params.key);</span></span><br><span class="line"><span class="javascript">        formData.append(<span class="string">"fileName"</span>, file.name);</span></span><br><span class="line"><span class="javascript">        <span class="comment">//文件大小</span></span></span><br><span class="line"><span class="javascript">        formData.append(<span class="string">"fileSize"</span>, file.size);</span></span><br><span class="line"><span class="javascript">        formData.append(<span class="string">"file"</span>, file);</span></span><br><span class="line"><span class="javascript">        xhr.open(<span class="string">'post'</span>, <span class="string">'/uploadFile'</span>);</span></span><br><span class="line"><span class="undefined">        xhr.send(formData);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="更多的事件监听"><a href="#更多的事件监听" class="headerlink" title="更多的事件监听"></a>更多的事件监听</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xhr.addEventListener(<span class="string">'progress'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">oEvent</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//监听上传进度</span></span><br><span class="line">&#125; , <span class="literal">false</span>);</span><br><span class="line">xhr.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//上传完成</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">xhr.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//上传出错</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h2><p>HTTP协议是一种无状态协议，服务器端本身不具有识别客户端的能力，必须借助外部机制，比如session和cookie，才能与特定客户端保持对话。这多多少少带来一些不便，尤其在服务器端与客户端需要持续交换数据的场合（比如网络聊天），更是如此。为了解决这个问题，HTML5提出了浏览器的WebSocket API。</p>
+<p>WebSocket的主要作用是，允许服务器端与客户端进行全双工（full-duplex）的通信。举例来说，HTTP协议有点像发电子邮件，发出后必须等待对方回信；WebSocket则是像打电话，服务器端和客户端可以同时向对方发送数据，它们之间存着一条持续打开的数据通道。</p>
+<h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> connection = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:1740'</span>); <span class="comment">//建立连接</span></span><br><span class="line">connection.onopen = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//连接建立成功后调用此方法</span></span><br><span class="line">&#125;</span><br><span class="line">connection.onclose = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//连接被关闭调用此方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WebSocket协议完全可以取代Ajax方法，用来向服务器端发送文本和二进制数据，而且还没有“同域限制”。</p>
+<p>WebSocket不使用HTTP协议，而是使用自己的协议。</p>
+<h3 id="发送和接收数据"><a href="#发送和接收数据" class="headerlink" title="发送和接收数据"></a>发送和接收数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">connection.send(message); <span class="comment">//发送文字信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Blob发送文件</span></span><br><span class="line"><span class="keyword">var</span> file = <span class="built_in">document</span>.querySelector(<span class="string">'input[type="file"]'</span>).files[<span class="number">0</span>];</span><br><span class="line">connection.send(file);</span><br></pre></td></tr></table></figure>
+<p>客户端收到服务器发送的数据，会触发message事件。可以通过定义message事件的回调函数，来处理服务端返回的数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">connection.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(event.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的回调函数的参数为事件对象event，该对象的data属性包含了服务器返回的数据。</p>
+<h3 id="Socket-io"><a href="#Socket-io" class="headerlink" title="Socket.io"></a>Socket.io</h3><p>Socket.io是目前最流行的WebSocket实现，包括服务器和客户端两个部分。它不仅简化了接口，使得操作更容易，而且对于那些不支持WebSocket的浏览器，会自动降为Ajax连接，最大限度地保证了兼容性。它的目标是统一通信机制，使得所有浏览器和移动设备都可以进行实时通信。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://localhost'</span>);</span><br><span class="line"><span class="comment">//监听事件</span></span><br><span class="line">socket.on(<span class="string">'news'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//发送信息</span></span><br><span class="line">socket.emit(<span class="string">'anotherNews'</span>);</span><br></pre></td></tr></table></figure>
+<p>上面代码的io.sockets.on方法指定connection事件（WebSocket连接建立）的回调函数。在回调函数中，用emit方法向客户端发送数据，触发客户端的news事件。然后，再用on方法指定服务器端anotherNews事件的回调函数。</p>
+<p>不管是服务器还是客户端，socket.io提供两个核心方法：emit方法用于发送消息，on方法用于监听对方发送的消息。</p>
+<h2 id="Server-Sent-Events"><a href="#Server-Sent-Events" class="headerlink" title="Server-Sent Events"></a>Server-Sent Events</h2><p>传统的网页都是浏览器向服务器“查询”数据，但是很多场合，最有效的方式是服务器向浏览器“发送”数据。比如，每当收到新的电子邮件，服务器就向浏览器发送一个“通知”，这要比浏览器按时向服务器查询（polling）更有效率。</p>
+<p>服务器发送事件（Server-Sent Events，简称SSE）就是为了解决这个问题，而提出的一种新API，部署在EventSource对象上。目前，除了IE，其他主流浏览器都支持。</p>
+<p>简单说，所谓SSE，就是浏览器向服务器发送一个HTTP请求，然后服务器不断单向地向浏览器推送“信息”（message）。这种信息在格式上很简单，就是“信息”加上前缀“data: ”，然后以“\n\n”结尾。</p>
+<p>SSE与WebSocket有相似功能，都是用来建立浏览器与服务器之间的通信渠道。两者的区别在于：</p>
+<blockquote>
+<p>WebSocket是全双工通道，可以双向通信，功能更强；SSE是单向通道，只能服务器向浏览器端发送。<br>WebSocket是一个新的协议，需要服务器端支持；SSE则是部署在HTTP协议之上的，现有的服务器软件都支持。<br>SSE是一个轻量级协议，相对简单；WebSocket是一种较重的协议，相对复杂。<br>SSE默认支持断线重连，WebSocket则需要额外部署。<br>SSE支持自定义发送的数据类型。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> EventSource(<span class="string">'/dates'</span>);</span><br><span class="line"></span><br><span class="line">source.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e.data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">source.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line">source.onopen = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// handle open event</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"></span><br><span class="line">source.addEventListener(<span class="string">"open"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// handle open event</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>SSE 有两个事件， open用代开连接后事件， message，当接收到信息后的事件， 其中message的event对象有以下属性</p>
+<blockquote>
+<p>data：服务器端传回的数据（文本格式）。<br>origin： 服务器端URL的域名部分，即协议、域名和端口。<br>lastEventId：数据的编号，由服务器端发送。如果没有编号，这个属性为空。</p>
+</blockquote>
+<h2 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h2><p>JavaScript 通过XMLHttpRequest(XHR)来执行异步请求，这个方式已经存在了很长一段时间。虽说它很有用，但它不是最佳API。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里。而且，基于事件的模型与最近JavaScript流行的Promise以及基于生成器的异步编程模型不太搭.</p>
+<p>fetch 是w3c新推出用于 http协议数据交互的api， 主要是问了解决上述中 XMLHttpRequest 对象的缺点。 fetch基于 promise 的异步设计，是http请求操作更为优雅。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"/data.json"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// res instanceof Response == true.</span></span><br><span class="line">  <span class="keyword">if</span> (res.ok) &#123;</span><br><span class="line">    res.json().then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data.entries);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Looks like the response wasn't perfect, got status"</span>, res.status);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Fetch failed!"</span>, e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在请求的时候也可以修改一些参数, 例如我们发送一个post请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://www.example.org/submit.php"</span>, &#123;</span><br><span class="line">  method: <span class="string">"POST"</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  body: <span class="string">"firstName=Nikhil&amp;favColor=blue&amp;password=easytoguess"</span></span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (res.ok) &#123;</span><br><span class="line">    alert(<span class="string">"Perfect! Your settings are saved."</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.status == <span class="number">401</span>) &#123;</span><br><span class="line">    alert(<span class="string">"Oops! You are not authorized."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Error submitting form!"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>无论Request还是Response都可能带着body。由于body可以是各种类型，比较复杂，所以前面我们故意先略过它，在这里单独拿出来讲解。</p>
+<p>body可以是以下任何一种类型的实例：</p>
+<blockquote>
+<p>ArrayBuffer<br>ArrayBufferView (Uint8Array and friends)<br>Blob / File<br>字符串<br>URLSearchParams<br>FormData ——目前不被Gecko和Blink支持，Firefox预计在版本39和Fetch的其他部分一起推出。</p>
+</blockquote>
+<p>此外，Request和Response都为他们的body提供了以下方法，这些方法都返回一个Promise对象。</p>
+<blockquote>
+<p>arrayBuffer()<br>blob()<br>json()<br>text()<br>formData()</p>
+</blockquote>
+<p>在使用非文本的数据方面，Fetch API和XHR相比提供了极大的便利。</p>
+<h2 id="Navigation-Timing"><a href="#Navigation-Timing" class="headerlink" title="Navigation Timing"></a>Navigation Timing</h2><p>在页面开发中我们需要对网页中一些操作的性能做监测，以便于后续的顶点优化，例如： 资源文件下载时间，dom渲染时间等等,HTML5 给我们提供了 Navigation Timing API 来处理这些问题， 该API通过window.performance对象的属性来报告页面被导航或被加载的时间及相关信息。</p>
+<blockquote>
+<p>navigation:用户是怎样导航到当前页面的。<br>timing:页面被导航或被加载完毕时所耗费的时间。</p>
+</blockquote>
+<p>在Chrome浏览器中，从任何页面上执行以下操作：</p>
+<ol>
+<li>从浏览器右上角的图标菜单中选择“工具”&gt;“JavaScript控制台”。</li>
+<li>在JavaScript控制台底部的&gt;提示符旁边输入“performance”命令后按回车键。</li>
+<li>点击“performance”查看memory对象、navigation对象及timing对象的各属性值。</li>
+<li>点击timing对象旁的箭头查看它的属性值。</li>
+</ol>
+<p>你会看到这样一些信息:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">connectEnd: <span class="number">1351215923674</span></span><br><span class="line">connectStart: <span class="number">1351215923667</span></span><br><span class="line">domComplete: <span class="number">1351215925257</span></span><br><span class="line">domContentLoadedEventEnd: <span class="number">1351215925095</span></span><br><span class="line">domContentLoadedEventStart: <span class="number">1351215925091</span></span><br><span class="line">domInteractive: <span class="number">1351215925091</span></span><br><span class="line">domLoading: <span class="number">1351215924954</span></span><br><span class="line">domainLookupEnd: <span class="number">1351215923667</span></span><br><span class="line">domainLookupStart: <span class="number">1351215923667</span></span><br><span class="line">fetchStart: <span class="number">1351215923667</span></span><br><span class="line">loadEventEnd: <span class="number">0</span></span><br><span class="line">loadEventStart: <span class="number">1351215925257</span></span><br><span class="line">navigationStart: <span class="number">1351215923667</span></span><br><span class="line">redirectEnd: <span class="number">0</span></span><br><span class="line">redirectStart: <span class="number">0</span></span><br><span class="line">requestStart: <span class="number">1351215923675</span></span><br><span class="line">responseEnd: <span class="number">1351215925024</span></span><br><span class="line">responseStart: <span class="number">1351215924948</span></span><br><span class="line">secureConnectionStart: <span class="number">0</span></span><br><span class="line">unloadEventEnd: <span class="number">1351215924949</span></span><br><span class="line">unloadEventStart: <span class="number">1351215924949</span></span><br></pre></td></tr></table></figure>
+<p>Navigation Timing 将页面各个操作的时间点都记录了下来，我们只需将这些数据传输到后台，进过后台的分析来判断哪些部分页面耗时过长需要优化。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/31/html5/html5网络连接/">html5网络连接</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Myron Liu 的个人博客">Myron Liu</a></p>
+        <p><span>发布时间:</span>2016年05月31日 - 12时05分</p>
+        <p><span>最后更新:</span>2018年11月25日 - 14时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/31/html5/html5网络连接/" title="html5网络连接">https://myronliu.com/2016/05/31/html5/html5网络连接/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://myronliu.com/2016/05/31/html5/html5网络连接/　　作者: Myron Liu" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/07/17/react-native/react-native start/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          react-native 开始走向mobile开发
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/31/html5/html5设备api/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">html5设备api</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XMLHttpRequest-Level-2"><span class="toc-number">1.</span> <span class="toc-text">XMLHttpRequest Level 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置请求时限"><span class="toc-number">1.1.</span> <span class="toc-text">设置请求时限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FormData-上传文件"><span class="toc-number">1.2.</span> <span class="toc-text">FormData 上传文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更多的事件监听"><span class="toc-number">1.3.</span> <span class="toc-text">更多的事件监听</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSocket"><span class="toc-number">2.</span> <span class="toc-text">WebSocket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建立连接"><span class="toc-number">2.1.</span> <span class="toc-text">建立连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送和接收数据"><span class="toc-number">2.2.</span> <span class="toc-text">发送和接收数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Socket-io"><span class="toc-number">2.3.</span> <span class="toc-text">Socket.io</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Server-Sent-Events"><span class="toc-number">3.</span> <span class="toc-text">Server-Sent Events</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fetch"><span class="toc-number">4.</span> <span class="toc-text">fetch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigation-Timing"><span class="toc-number">5.</span> <span class="toc-text">Navigation Timing</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+<link rel="stylesheet" href="/css/gitment.min.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'html5网络连接', // 可选。默认为 location.href
+  owner: 'myronliu347',
+  repo: 'myronliu347.github.io',
+  oauth: {
+    client_id: '036f91611306aeb20459',
+    client_secret: '9ad4d0d67b4682bf95f705542c767d77867765ee',
+  },
+})
+gitment.render('comments')
+</script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/17/react-native/react-native start/" title="上一篇: react-native 开始走向mobile开发">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/05/31/html5/html5设备api/" title="下一篇: html5设备api">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/01/muse-ui/muse-model-desc/">简化 vuex 的状态管理方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/18/随笔/开源协议/">关于开源许可协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/移动web/runtime/">移动端页面多环境运行解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/移动web/css_harline/">移动web 1px边框解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/16/随笔/拖延症/">关于拖延症的一些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/vue/vue_webpack_boilerplate/">Vue webpack boilerplate 的一些捣腾</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/31/vue/vue_mixins_directive/">关于 Vue Mixin 和 Directive 的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/随笔/2016/">不断折腾的2016 | 掘金技术征文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/12/vue/muse_ui/">Muse UI — Vue2.0 和 Material Design 结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/26/wechat/wechat_start/">微信小程序开发初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/18/vue/vue_ripple/">vue 开发波纹点击特效组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vue/vue_layer/">关于 vue 弹窗组件的一些感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/01/移动web/mobile_css/">移动web开发中有用的css片段</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/21/javscript/ES6的二三事(二)－模块化/">ES6的二三事(二)-模块化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/javscript/ES6的二三事(一)/">ES6的二三事(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/node_npm_update/">node 和 npm 版本升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/前端工具/javascript_unit/">javascript单元测试实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/前端工具/2016-08-09/">npm 发布一个自己的包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/07/前端工具/2016-08-07/">使用 rollup 打包你的 ES6 代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/22/react-native/react-native_launch/">react-native 给android端设置启动图</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/react-native/react-native start/">react-native 开始走向mobile开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5网络连接/">html5网络连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5设备api/">html5设备api</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/html5/html5离线存储/">html5离线存储</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/html5/html5语义化标签/">HTML5 语义化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/webapp/webapp_dev2/">webapp 性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/webapp/webapp_dev1/">最简单的webapp开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/webapp/webapp_mobile_page/">关于webapp开发——移动端页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/js缓存封装/">js缓存封装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/前端工具/atom这个IDE有点酷/">atom这个IDE有点酷</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/05/editorconfig和Eslint规范代码编辑/">editorconfig和Eslint规范代码编辑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/javascript作用域和闭包/">javascript作用域与闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/如何写一个完善的jquery ui组件/">如何写一个完善的jquery ui组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/29/javscript/javascript数据驱动页面/">javascript数据驱动页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/24/hexo-coding搭建自己的博客/">hexo+coding搭建自己的博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/javscript/javascript面向对象编程/">javascript面向对象编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(二)--commonjs,AMD,CMD/">javascript模块化编程(二)--commonjs,AMD,CMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(一)/">javascript模块化编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-BFC和IFC/">css布局-BFC和IFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-盒模型，定位和浮动/">css布局-盒模型，定位和浮动</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/06/javscript/javascript类工厂构建/">javascript类工厂构建</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/前端seo优化/">前端seo优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/Yahoo军规/">前端代码规范(YaHoo军规)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/16/前端工具/sublime常用的插件介绍/">sublime常用的插件介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/javscript/javascript异步处理/">javascript异步处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/前端工具/sublime自定义代码提示/">sublime自定义代码提示</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime功能介绍/">sublime功能介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime常用快捷键/">sublime常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/javscript/javascript类型判断/">javascript类型判断</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/13/移动web/移动web开发准备工作/">移动web开发准备工作</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Myron Liu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

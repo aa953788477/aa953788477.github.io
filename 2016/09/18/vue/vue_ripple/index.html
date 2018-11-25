@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>vue 开发波纹点击特效组件 | 锦鲤的小空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在使用 vue2 做一个新的 material ui 库，波纹点击效果在 material design 中被多次使用到，于是决定把它封装成一个公共的组件，使用时直接调用就好啦。">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 开发波纹点击特效组件">
+<meta property="og:url" content="https://myronliu.com/2016/09/18/vue/vue_ripple/index.html">
+<meta property="og:site_name" content="锦鲤的小空间">
+<meta property="og:description" content="最近在使用 vue2 做一个新的 material ui 库，波纹点击效果在 material design 中被多次使用到，于是决定把它封装成一个公共的组件，使用时直接调用就好啦。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-25T06:42:51.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue 开发波纹点击特效组件">
+<meta name="twitter:description" content="最近在使用 vue2 做一个新的 material ui 库，波纹点击效果在 material design 中被多次使用到，于是决定把它封装成一个公共的组件，使用时直接调用就好啦。">
+  
+    <link rel="alternative" href="/atom.xml" title="锦鲤的小空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myron Liu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">低头努力，剩下的交给时光</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 18.33px;">HTML5</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/chai/" style="font-size: 10px;">chai</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/editorconfig/" style="font-size: 10px;">editorconfig</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/react-native/" style="font-size: 11.67px;">react-native</a> <a href="/tags/rollup/" style="font-size: 10px;">rollup</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/web-storage/" style="font-size: 10px;">web storage</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端工具/" style="font-size: 16.67px;">前端工具</a> <a href="/tags/前端工具-sublime/" style="font-size: 15px;">前端工具 sublime</a> <a href="/tags/移动web/" style="font-size: 13.33px;">移动web</a> <a href="/tags/移动端/" style="font-size: 16.67px;">移动端</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">luuman</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.devzeng.com/">曾静的博客</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.5udou.com/">豆米的博客</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">前端攻城狮，闲散人员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myron Liu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myron Liu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">低头努力，剩下的交给时光</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-vue/vue_ripple" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/18/vue/vue_ripple/" class="article-date">
+      <time datetime="2016-09-18T08:34:00.000Z" itemprop="datePublished">2016-09-18</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue 开发波纹点击特效组件
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>最近在使用 vue2 做一个新的 material ui 库，波纹点击效果在 material design 中被多次使用到，于是决定把它封装成一个公共的组件，使用时直接调用就好啦。</p>
+<a id="more"></a>
+<h2 id="开发之前的思考"><a href="#开发之前的思考" class="headerlink" title="开发之前的思考"></a>开发之前的思考</h2><p>常见的波纹点击效果的实现方式是监听元素的 mousedown 事件，在元素内部创建一个 <strong>波纹元素</strong> ，并调整元素的 <code>transform: scale(0);</code> 到 <code>transform: scale(1);</code>, 通过计算点击的位置来设置 <strong>波纹元素</strong> 的大小和位置，以达到波纹扩散的效果。</p>
+<p>我将组件分为两个部分， <code>circleRipple.vue</code> 和 <code>TouchRipple.vue</code> 各自实现不同的功能</p>
+<ol>
+<li><code>circleRipple.vue</code> 波纹扩散组件，完成波纹扩散的效果</li>
+<li><code>TouchRipple.vue</code> 监听 <code>mouse</code> 和 <code>touch</code> 相关事件，控制  <code>circleRipple</code> 的显示，位置。</li>
+</ol>
+<h2 id="circleRipple-vue"><a href="#circleRipple-vue" class="headerlink" title="circleRipple.vue"></a>circleRipple.vue</h2><p><code>circleRipple</code> 需要完成波纹扩展的效果，而且可以从外部控制它的大小和位置, 所以利用 <code>vue</code> 的 <code>transition</code> 动画完成效果, 提供 <code>mergeStyle</code> 、 <code>color</code> 、<code>opacity</code> 参数来从外部控制它的样式。实现代码如下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"mu-ripple"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mu-circle-ripple"</span> <span class="attr">:style</span>=<span class="string">"styles"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123;merge&#125; <span class="keyword">from</span> <span class="string">'../utils'</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    mergeStyle: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">Object</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span> () &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;&#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    color: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span>: <span class="string">''</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    opacity: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">Number</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  computed: &#123;</span></span><br><span class="line"><span class="undefined">    styles () &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> merge(&#123;&#125;, &#123;<span class="attr">color</span>: <span class="keyword">this</span>.color, <span class="attr">opacity</span>: <span class="keyword">this</span>.opacity&#125;, <span class="keyword">this</span>.mergeStyle)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">@<span class="keyword">import</span> <span class="string">"../styles/import.less"</span>;</span></span><br><span class="line"><span class="css"><span class="selector-class">.mu-circle-ripple</span>&#123;</span></span><br><span class="line"><span class="undefined">  position: absolute;</span></span><br><span class="line"><span class="undefined">  width: 100%;</span></span><br><span class="line"><span class="undefined">  height: 100%;</span></span><br><span class="line"><span class="undefined">  left: 0;</span></span><br><span class="line"><span class="undefined">  top: 0;</span></span><br><span class="line"><span class="undefined">  pointer-events: none;</span></span><br><span class="line"><span class="undefined">  user-select: none;</span></span><br><span class="line"><span class="undefined">  border-radius: 50%;</span></span><br><span class="line"><span class="undefined">  background-color: currentColor;</span></span><br><span class="line"><span class="undefined">  background-clip: padding-box;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">opacity</span>: 0<span class="selector-class">.1</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.mu-ripple-enter-active</span>, <span class="selector-class">.mu-ripple-leave-active</span>&#123;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">transition</span>: <span class="selector-tag">transform</span> 1<span class="selector-tag">s</span> @<span class="keyword">easeOutFunction</span>, opacity <span class="number">2s</span> @easeOutFunction;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.mu-ripple-enter</span> &#123;</span></span><br><span class="line"><span class="undefined">  transform: scale(0);</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.mu-ripple-leave-active</span>&#123;</span></span><br><span class="line"><span class="undefined">  opacity: 0 !important;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>vue2 对于动画方面做了比较大的修改，除了把指令换成组件外，它还可以完成更复杂的动画效果，具体可以看这里 <a href="http://rc.vuejs.org/guide/transitions.html" target="_blank" rel="noopener">vue2 transition</a></p>
+</blockquote>
+<h2 id="TouchRipple-vue"><a href="#TouchRipple-vue" class="headerlink" title="TouchRipple.vue"></a>TouchRipple.vue</h2><p><code>TouchRipple</code> 需要控制 <code>circleRipple</code> 的显示。完成以下内容：</p>
+<ol>
+<li>监听 <code>mouse</code> 和 <code>touch</code> 相关事件， 控制 <code>circleRipple</code> 的显示。</li>
+<li>通过点击事件 event 对象， 计算出 <code>circleRipple</code> 的大小和位置</li>
+<li>如果频繁点击可能出现多个 <code>circleRipple</code></li>
+</ol>
+<h3 id="首先，基本模板-数据模型"><a href="#首先，基本模板-数据模型" class="headerlink" title="首先，基本模板 + 数据模型"></a>首先，基本模板 + 数据模型</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--最外层用div包裹--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">mousedown</span>=<span class="string">"handleMouseDown"</span> @<span class="attr">mouseup</span>=<span class="string">"end()"</span> @<span class="attr">mouseleave</span>=<span class="string">"end()"</span> @<span class="attr">touchstart</span>=<span class="string">"handleTouchStart"</span>  @<span class="attr">touchend</span>=<span class="string">"end()"</span> @<span class="attr">touchcancel</span>=<span class="string">"end()"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--外层包裹防止波纹溢出--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"style"</span> <span class="attr">ref</span>=<span class="string">"holder"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--多个波纹用 v-for 控制--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">circle-ripple</span> <span class="attr">:key</span>=<span class="string">"ripple.key"</span> <span class="attr">:color</span>=<span class="string">"ripple.color"</span> <span class="attr">:opacity</span>=<span class="string">"ripple.opacity"</span> <span class="attr">:merge-style</span>=<span class="string">"ripple.style"</span> <span class="attr">v-for</span>=<span class="string">"ripple in ripples"</span>&gt;</span><span class="tag">&lt;/<span class="name">circle-ripple</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--利用slot分发实际内容--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> circleRipple <span class="keyword">from</span> <span class="string">'./circleRipple'</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 是否从中间扩散，设为false会从点击处扩散</span></span></span><br><span class="line"><span class="undefined">    centerRipple: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">Boolean</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span>: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 外层包裹的样式</span></span></span><br><span class="line"><span class="undefined">    style: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">Object</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span> () &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          height: <span class="string">'100%'</span>,</span></span><br><span class="line"><span class="javascript">          width: <span class="string">'100%'</span>,</span></span><br><span class="line"><span class="javascript">          position: <span class="string">'absolute'</span>,</span></span><br><span class="line"><span class="javascript">          top: <span class="string">'0'</span>,</span></span><br><span class="line"><span class="javascript">          left: <span class="string">'0'</span>,</span></span><br><span class="line"><span class="javascript">          overflow: <span class="string">'hidden'</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 波纹颜色</span></span></span><br><span class="line"><span class="undefined">    color: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      <span class="keyword">default</span>: <span class="string">''</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 波纹透明度</span></span></span><br><span class="line"><span class="undefined">    opacity: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">Number</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      nextKey: <span class="number">0</span>, <span class="comment">// 记录下一个波纹元素的key值， 相当于uuid，不设置的话会使动画失效</span></span></span><br><span class="line"><span class="javascript">      ripples: [] <span class="comment">// 波纹元素参数数组</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  mounted () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.ignoreNextMouseDown = <span class="literal">false</span> <span class="comment">// 防止既有 touch 又有 mouse点击的情况</span></span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    start (event, isRippleTouchGenerated) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 开始波纹效果</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    end () &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 结束波纹效果</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    handleMouseDown (event) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 监听 鼠标单击</span></span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    handleTouchStart (event) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 监听 touchstart 方法</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="javascript">    <span class="string">'circle-ripple'</span>: circleRipple</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始和结束波纹效果"><a href="#开始和结束波纹效果" class="headerlink" title="开始和结束波纹效果"></a>开始和结束波纹效果</h3><p>增加一个波纹元素只需要在 <strong>ripple</strong> 增加一个 object 即可，不同的是当需要从点击处扩展时，需要计算一下波纹元素的大小和位置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// isRippleTouchGenerated 是否是touch 事件开始的</span></span><br><span class="line">  start (event, isRippleTouchGenerated) &#123;</span><br><span class="line">    <span class="comment">// 过滤 touchstart 和 mousedown 同时存在的情况</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ignoreNextMouseDown &amp;&amp; !isRippleTouchGenerated) &#123;</span><br><span class="line">      <span class="keyword">this</span>.ignoreNextMouseDown = <span class="literal">false</span></span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加一个 波纹元素组件</span></span><br><span class="line">    <span class="keyword">this</span>.ripples.push(&#123;</span><br><span class="line">      key: <span class="keyword">this</span>.nextKey++, </span><br><span class="line">      color: <span class="keyword">this</span>.color,</span><br><span class="line">      opacity: <span class="keyword">this</span>.opacity,</span><br><span class="line">      style: <span class="keyword">this</span>.centerRipple ? &#123;&#125; : <span class="keyword">this</span>.getRippleStyle(event) <span class="comment">// 不是从中心扩展的需要计算波纹元素的位置</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.ignoreNextMouseDown = isRippleTouchGenerated</span><br><span class="line"> &#125;,</span><br><span class="line"> end () &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">this</span>.ripples.length === <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line">   <span class="keyword">this</span>.ripples.splice(<span class="number">0</span>, <span class="number">1</span>) <span class="comment">// 删除一个波纹元素</span></span><br><span class="line">   <span class="keyword">this</span>.stopListeningForScrollAbort() <span class="comment">// 结束 touch 滚动的处理</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为 vue2 基于 Virtual DOM 的， 所以如果没有 <code>key</code> 在增加一个元素又同时删除一个元素的时候，dom tree并没有发生变化，是不会产生动画效果的。</p>
+<h3 id="监听-mousedown-和-touchstart"><a href="#监听-mousedown-和-touchstart" class="headerlink" title="监听 mousedown 和 touchstart"></a>监听 mousedown 和 touchstart</h3><p>mousedown 和 touchstart 处理上会有所不同，但都是用来启动波纹效果的， touch涉及到多点点击的问题，我们一般取第一个即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    handleMouseDown (event) &#123;</span><br><span class="line">      <span class="comment">// 只监听鼠标左键的点击</span></span><br><span class="line">      <span class="keyword">if</span> (event.button === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.start(event, <span class="literal">false</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    handleTouchStart (event) &#123;</span><br><span class="line">      event.stopPropagation() <span class="comment">// 防止多个波纹点击组件嵌套</span></span><br><span class="line">      <span class="keyword">if</span> (event.touches) &#123;</span><br><span class="line">        <span class="keyword">this</span>.startListeningForScrollAbort(event) <span class="comment">// 启动 touchmove 触发滚动处理</span></span><br><span class="line">        <span class="keyword">this</span>.startTime = <span class="built_in">Date</span>.now()</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.start(event.touches[<span class="number">0</span>], <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="touchmove控制"><a href="#touchmove控制" class="headerlink" title="touchmove控制"></a>touchmove控制</h3><p>当发生touchMove事件是需要判断是否，移动的距离和时间，然后结束小波纹点击小姑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// touchmove 结束波纹控制</span></span><br><span class="line">  stopListeningForScrollAbort () &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.handleMove) <span class="keyword">this</span>.handleMove = <span class="keyword">this</span>.handleTouchMove.bind(<span class="keyword">this</span>)</span><br><span class="line">    <span class="built_in">document</span>.body.removeEventListener(<span class="string">'touchmove'</span>, <span class="keyword">this</span>.handleMove, <span class="literal">false</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  startListeningForScrollAbort (event) &#123;</span><br><span class="line">    <span class="keyword">this</span>.firstTouchY = event.touches[<span class="number">0</span>].clientY</span><br><span class="line">    <span class="keyword">this</span>.firstTouchX = event.touches[<span class="number">0</span>].clientX</span><br><span class="line">    <span class="built_in">document</span>.body.addEventListener(<span class="string">'touchmove'</span>, <span class="keyword">this</span>.handleMove, <span class="literal">false</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  handleTouchMove (event) &#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceStart = <span class="built_in">Math</span>.abs(<span class="built_in">Date</span>.now() - <span class="keyword">this</span>.startTime)</span><br><span class="line">    <span class="keyword">if</span> (timeSinceStart &gt; <span class="number">300</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.stopListeningForScrollAbort()</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> deltaY = <span class="built_in">Math</span>.abs(event.touches[<span class="number">0</span>].clientY - <span class="keyword">this</span>.firstTouchY)</span><br><span class="line">    <span class="keyword">const</span> deltaX = <span class="built_in">Math</span>.abs(event.touches[<span class="number">0</span>].clientX - <span class="keyword">this</span>.firstTouchX)</span><br><span class="line">    <span class="comment">// 滑动范围在 &gt; 6px 结束波纹点击效果</span></span><br><span class="line">    <span class="keyword">if</span> (deltaY &gt; <span class="number">6</span> || deltaX &gt; <span class="number">6</span>) <span class="keyword">this</span>.end()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="计算波纹的位置和大小"><a href="#计算波纹的位置和大小" class="headerlink" title="计算波纹的位置和大小"></a>计算波纹的位置和大小</h3><p>需要从点击处扩散的波纹效果，需要计算波纹元素的大小和位置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  getRippleStyle (event) &#123;</span><br><span class="line">    <span class="keyword">let</span> holder = <span class="keyword">this</span>.$refs.holder</span><br><span class="line">    <span class="comment">//  这个方法返回一个矩形对象，包含四个属性：left、top、right和bottom。分别表示元素各边与页面上边和左边的距离。</span></span><br><span class="line">    <span class="keyword">let</span> rect = holder.getBoundingClientRect() </span><br><span class="line">    <span class="comment">// 获取点击点的位置</span></span><br><span class="line">    <span class="keyword">let</span> x = event.offsetX</span><br><span class="line">    <span class="keyword">let</span> y</span><br><span class="line">    <span class="keyword">if</span> (x !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      y = event.offsetY</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      x = event.clientX - rect.left</span><br><span class="line">      y = event.clientY - rect.top</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 获取最大边长</span></span><br><span class="line">    <span class="keyword">let</span> max</span><br><span class="line">    <span class="keyword">if</span> (rect.width === rect.height) &#123;</span><br><span class="line">      max = rect.width * <span class="number">1.412</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      max = <span class="built_in">Math</span>.sqrt(</span><br><span class="line">        (rect.width * rect.width) + (rect.height * rect.height)</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> dim = (max * <span class="number">2</span>) + <span class="string">'px'</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      width: dim,</span><br><span class="line">      height: dim,</span><br><span class="line">      <span class="comment">// 通过margin控制波纹中心点和点击点一致</span></span><br><span class="line">      <span class="string">'margin-left'</span>: -max + x + <span class="string">'px'</span>,</span><br><span class="line">      <span class="string">'margin-top'</span>: -max + y + <span class="string">'px'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>由于 <code>touchRipple</code> 内部都是 <strong>position:absolute</strong> 布局，使用时，需要在外部加上 <strong>position:relative</strong> </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// listItem.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"href"</span> @<span class="attr">mouseenter</span>=<span class="string">"hover = true"</span> @<span class="attr">mouseleave</span>=<span class="string">"hover = false"</span> @<span class="attr">touchend</span>=<span class="string">"hover = false"</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">touchcancel</span>=<span class="string">"hover = false"</span> <span class="attr">class</span>=<span class="string">"mu-item-wrapper"</span> <span class="attr">:class</span>=<span class="string">"&#123;'hover': hover&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">touch-ripple</span> <span class="attr">class</span>=<span class="string">"mu-item"</span> <span class="attr">:class</span>=<span class="string">"&#123;'mu-item-link': link&#125;"</span> <span class="attr">:center-ripple</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mu-item-media"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"media"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mu-item-content"</span>&gt;</span></span><br><span class="line">        // ...</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">touch-ripple</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.mu-item-wrapper</span> &#123;</span></span><br><span class="line"><span class="undefined">    display: block;</span></span><br><span class="line"><span class="undefined">    color: inherit;</span></span><br><span class="line"><span class="undefined">    position: relative;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>到这点击波纹组件就开发完了， 这些代码借鉴了 <a href="https://github.com/JosephusPaye/Keen-UI" target="_blank" rel="noopener">keen-ui</a> 和 <a href="http://www.material-ui.com/" target="_blank" rel="noopener">material-ui</a> 的实现方式。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/09/18/vue/vue_ripple/">vue 开发波纹点击特效组件</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Myron Liu 的个人博客">Myron Liu</a></p>
+        <p><span>发布时间:</span>2016年09月18日 - 16时34分</p>
+        <p><span>最后更新:</span>2018年11月25日 - 14时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/09/18/vue/vue_ripple/" title="vue 开发波纹点击特效组件">https://myronliu.com/2016/09/18/vue/vue_ripple/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://myronliu.com/2016/09/18/vue/vue_ripple/　　作者: Myron Liu" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/26/wechat/wechat_start/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          微信小程序开发初体验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/08/vue/vue_layer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于 vue 弹窗组件的一些感想</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开发之前的思考"><span class="toc-number">1.</span> <span class="toc-text">开发之前的思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#circleRipple-vue"><span class="toc-number">2.</span> <span class="toc-text">circleRipple.vue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TouchRipple-vue"><span class="toc-number">3.</span> <span class="toc-text">TouchRipple.vue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#首先，基本模板-数据模型"><span class="toc-number">3.1.</span> <span class="toc-text">首先，基本模板 + 数据模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始和结束波纹效果"><span class="toc-number">3.2.</span> <span class="toc-text">开始和结束波纹效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监听-mousedown-和-touchstart"><span class="toc-number">3.3.</span> <span class="toc-text">监听 mousedown 和 touchstart</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#touchmove控制"><span class="toc-number">3.4.</span> <span class="toc-text">touchmove控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算波纹的位置和大小"><span class="toc-number">3.5.</span> <span class="toc-text">计算波纹的位置和大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">4.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+<link rel="stylesheet" href="/css/gitment.min.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'vue 开发波纹点击特效组件', // 可选。默认为 location.href
+  owner: 'myronliu347',
+  repo: 'myronliu347.github.io',
+  oauth: {
+    client_id: '036f91611306aeb20459',
+    client_secret: '9ad4d0d67b4682bf95f705542c767d77867765ee',
+  },
+})
+gitment.render('comments')
+</script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/09/26/wechat/wechat_start/" title="上一篇: 微信小程序开发初体验">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/09/08/vue/vue_layer/" title="下一篇: 关于 vue 弹窗组件的一些感想">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/01/muse-ui/muse-model-desc/">简化 vuex 的状态管理方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/18/随笔/开源协议/">关于开源许可协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/移动web/runtime/">移动端页面多环境运行解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/移动web/css_harline/">移动web 1px边框解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/16/随笔/拖延症/">关于拖延症的一些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/vue/vue_webpack_boilerplate/">Vue webpack boilerplate 的一些捣腾</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/31/vue/vue_mixins_directive/">关于 Vue Mixin 和 Directive 的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/随笔/2016/">不断折腾的2016 | 掘金技术征文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/12/vue/muse_ui/">Muse UI — Vue2.0 和 Material Design 结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/26/wechat/wechat_start/">微信小程序开发初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/18/vue/vue_ripple/">vue 开发波纹点击特效组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vue/vue_layer/">关于 vue 弹窗组件的一些感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/01/移动web/mobile_css/">移动web开发中有用的css片段</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/21/javscript/ES6的二三事(二)－模块化/">ES6的二三事(二)-模块化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/javscript/ES6的二三事(一)/">ES6的二三事(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/node_npm_update/">node 和 npm 版本升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/前端工具/javascript_unit/">javascript单元测试实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/前端工具/2016-08-09/">npm 发布一个自己的包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/07/前端工具/2016-08-07/">使用 rollup 打包你的 ES6 代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/22/react-native/react-native_launch/">react-native 给android端设置启动图</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/react-native/react-native start/">react-native 开始走向mobile开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5网络连接/">html5网络连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5设备api/">html5设备api</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/html5/html5离线存储/">html5离线存储</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/html5/html5语义化标签/">HTML5 语义化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/webapp/webapp_dev2/">webapp 性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/webapp/webapp_dev1/">最简单的webapp开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/webapp/webapp_mobile_page/">关于webapp开发——移动端页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/js缓存封装/">js缓存封装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/前端工具/atom这个IDE有点酷/">atom这个IDE有点酷</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/05/editorconfig和Eslint规范代码编辑/">editorconfig和Eslint规范代码编辑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/javascript作用域和闭包/">javascript作用域与闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/如何写一个完善的jquery ui组件/">如何写一个完善的jquery ui组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/29/javscript/javascript数据驱动页面/">javascript数据驱动页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/24/hexo-coding搭建自己的博客/">hexo+coding搭建自己的博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/javscript/javascript面向对象编程/">javascript面向对象编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(二)--commonjs,AMD,CMD/">javascript模块化编程(二)--commonjs,AMD,CMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(一)/">javascript模块化编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-BFC和IFC/">css布局-BFC和IFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-盒模型，定位和浮动/">css布局-盒模型，定位和浮动</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/06/javscript/javascript类工厂构建/">javascript类工厂构建</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/前端seo优化/">前端seo优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/Yahoo军规/">前端代码规范(YaHoo军规)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/16/前端工具/sublime常用的插件介绍/">sublime常用的插件介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/javscript/javascript异步处理/">javascript异步处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/前端工具/sublime自定义代码提示/">sublime自定义代码提示</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime功能介绍/">sublime功能介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime常用快捷键/">sublime常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/javscript/javascript类型判断/">javascript类型判断</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/13/移动web/移动web开发准备工作/">移动web开发准备工作</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Myron Liu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

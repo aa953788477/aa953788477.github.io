@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl">
+  
+  
+  
+  
+  <title>不断折腾的2016 | 掘金技术征文 | 锦鲤的小空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="又到了为抢票发愁的时候，好在今天我终于买到，可以好好的写个2016的总结啦！ 2016从年初到年尾都在不断的折腾，一些新的技术、工具。。。 最后终于从一个半前端成长为一个还算合格的前端攻城狮。">
+<meta name="keywords" content="随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不断折腾的2016 | 掘金技术征文">
+<meta property="og:url" content="https://myronliu.com/2016/12/29/随笔/2016/index.html">
+<meta property="og:site_name" content="锦鲤的小空间">
+<meta property="og:description" content="又到了为抢票发愁的时候，好在今天我终于买到，可以好好的写个2016的总结啦！ 2016从年初到年尾都在不断的折腾，一些新的技术、工具。。。 最后终于从一个半前端成长为一个还算合格的前端攻城狮。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-25T06:42:51.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不断折腾的2016 | 掘金技术征文">
+<meta name="twitter:description" content="又到了为抢票发愁的时候，好在今天我终于买到，可以好好的写个2016的总结啦！ 2016从年初到年尾都在不断的折腾，一些新的技术、工具。。。 最后终于从一个半前端成长为一个还算合格的前端攻城狮。">
+  
+    <link rel="alternative" href="/atom.xml" title="锦鲤的小空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.jpg">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Myron Liu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">低头努力，剩下的交给时光</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ES6/" style="font-size: 11.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 18.33px;">HTML5</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/chai/" style="font-size: 10px;">chai</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/editorconfig/" style="font-size: 10px;">editorconfig</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/mocha/" style="font-size: 10px;">mocha</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/react-native/" style="font-size: 11.67px;">react-native</a> <a href="/tags/rollup/" style="font-size: 10px;">rollup</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/web-storage/" style="font-size: 10px;">web storage</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/前端工具/" style="font-size: 16.67px;">前端工具</a> <a href="/tags/前端工具-sublime/" style="font-size: 15px;">前端工具 sublime</a> <a href="/tags/移动web/" style="font-size: 13.33px;">移动web</a> <a href="/tags/移动端/" style="font-size: 16.67px;">移动端</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a> <a href="/tags/随笔/" style="font-size: 13.33px;">随笔</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">luuman</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.devzeng.com/">曾静的博客</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.5udou.com/">豆米的博客</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">前端攻城狮，闲散人员</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Myron Liu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Myron Liu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">低头努力，剩下的交给时光</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:myronliu347@gmail.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/myronliu347" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-随笔/2016" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/29/随笔/2016/" class="article-date">
+      <time datetime="2016-12-29T01:00:00.000Z" itemprop="datePublished">2016-12-29</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      不断折腾的2016 | 掘金技术征文
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>又到了为抢票发愁的时候，好在今天我终于买到，可以好好的写个2016的总结啦！</p>
+<p>2016从年初到年尾都在不断的折腾，一些新的技术、工具。。。 最后终于从一个半前端成长为一个还算合格的前端攻城狮。</p>
+<a id="more"></a>
+<h2 id="Hexo-搭建自己的博客"><a href="#Hexo-搭建自己的博客" class="headerlink" title="Hexo 搭建自己的博客"></a>Hexo 搭建自己的博客</h2><p>年初决定今年一定要坚持写博客，从毕业以来尝试了很多的博客平台，包括 csdn，farbox等等，后来决定自己搭建一个博客。开始使用最新版的 <code>wordpress</code> 折腾了一段时间未果，公司有位大牛跟我说github是有pages服务可以搭建静态站点，几番探寻之后决定使用, hexo来搭建一个自己博客，搭建好之后我把搭建过程记录下来，作为新博客的第一篇文章: <a href="http://www.myronliu.com/2016/03/24/hexo-coding%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" target="_blank" rel="noopener">hexo+coding搭建自己的博客</a> 。</p>
+<p>作为一个颜控，找了好多主题之后最终选定 <a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">yilia</a> ,买了个 <a href="http://zh.mweb.im/" target="_blank" rel="noopener">MWeb</a> 编辑器，从年初到现在写了30多篇博客，写作确实是意见令人愉悦的事情，希望明年能也能坚持下来。</p>
+<h2 id="ReactNative-开发尝试"><a href="#ReactNative-开发尝试" class="headerlink" title="ReactNative 开发尝试"></a>ReactNative 开发尝试</h2><p>7月中旬，公司需要做一个阅读类的app，决定使用 <code>react-native</code> 开发安卓端，这个项目的开发时间只有一个人月，但是对我的帮助特别大，当时的技术选型时使用 redux + react-native 开发。</p>
+<p>由于是第一次正式开发react-native 项目，于是我选择了<a href="https://github.com/soliury/noder-react-native" target="_blank" rel="noopener">noder-react-native</a> 作为参考项目，仔细阅读过代码后，无论是路由、缓存的处理，还是组件抽象，状态的管理都是我耳目一新。这个项目也使用了它的模式进行开发顺利开发完成，自己对组件，状态管理也有了更深的理解。</p>
+<p>react-native 开发中也遇到了许多的问题，APP启动的老是会有一段时间的白屏，花了很久时间想在启动的时候给App 设置一张启动图，找了各种插件，最后在android开发同学帮助下解决了这个问题(其实就是设置个背景图的就好了), react-native 版本迭代有点快，有些插件都不能支持现在的版本，所以有些地方需要自己去改动，这段时间经常跟android开发同学沟通，问一些api上的问题，也将一些插件升级之后的问题修复。</p>
+<p>最后就是一些集成一些热更新（<a href="http://update.reactnative.cn/" target="_blank" rel="noopener">pushy</a>）,消息推送（<a href="https://github.com/reactnativecn/react-native-jpush" target="_blank" rel="noopener">jpush</a>）这类的插件, 这次开发收益良多，最终把一些开发过程记录了下来。<a href="http://www.myronliu.com/2016/07/17/react-native/react-native%20start/" target="_blank" rel="noopener">react-native 开始走向mobile开发</a> , <a href="http://www.myronliu.com/2016/07/22/react-native/react-native_launch/" target="_blank" rel="noopener">react-native 给android端设置启动图</a></p>
+<h2 id="和-Vue-的那些事"><a href="#和-Vue-的那些事" class="headerlink" title="和 Vue 的那些事"></a>和 Vue 的那些事</h2><p>15年底的时候疯狂痴迷 <a href="http://javascript.ruanyifeng.com/htmlapi/webcomponents.html" target="_blank" rel="noopener">Web Components</a> ，某天看到一个叫 Vue 的框架支持单文件组件, 于是便是一见钟情，疯狂研究vue，刷了vue 教程和api两周之后决定做一些事情。</p>
+<h3 id="angular-迁移到-Vue"><a href="#angular-迁移到-Vue" class="headerlink" title="angular 迁移到 Vue"></a>angular 迁移到 Vue</h3><p>公司 app 中嵌入一些HTML5页面使用的angular 1.x，学完vue之后决定重构，angular迁移到vue 大部分没有什么问题，只是有些地方需要特别注意。</p>
+<ul>
+<li>scope 服务使用this， 可以在某些处理函数顶部加上 <code>var scope = this</code> </li>
+<li>所有ng的指令对应换成 <code>v-</code>， 事件处理的地方 <code>ng-</code> 换成 <code>@</code>, <code>ng-repeat</code> 替换为 <code>v-for</code></li>
+<li>干掉所有 <code>services</code> ,换成正常的 <code>function</code></li>
+</ul>
+<p>vue1.0跟angular还比较接近，迁移起来也比较顺手。</p>
+<h3 id="开发Vue组件库"><a href="#开发Vue组件库" class="headerlink" title="开发Vue组件库"></a>开发Vue组件库</h3><p>使用过vue之后愈发的喜欢，我是一个特别喜欢造轮子的人，老是想写个组件库，一直都很喜欢 material 风格的UI, 在8月初的时候遍开始写自己的第一个UI库，<a href="https://github.com/myronliu347/vue-carbon" target="_blank" rel="noopener">vue-carbon</a>, 这里面大部分的UI是参考 <a href="http://framework7.io/" target="_blank" rel="noopener">framework7</a>, 写之前把它的代码来来回回撸了好几遍，也是从那时开始flexbox布局使用的越来越熟练，对于vue的组件也有了些自己理解，其中最得意的部分是关于弹出框控制，参考了 <a href="https://github.com/ElemeFE/vue-popup" target="_blank" rel="noopener">vue-popup</a> 的实现方式，也加入了自己思考，最终应用到组件中，一直到后来的 <code>muse-ui</code> 仍然在沿用, <a href="http://www.myronliu.com/2016/09/08/vue/vue_layer/" target="_blank" rel="noopener">关于 vue 弹窗组件的一些感想</a> 。</p>
+<p>后来的时间里，除了对 <code>vue-carbon</code> 的维护，我开始认真的去看 <a href="https://material.google.com" target="_blank" rel="noopener">Material Design</a> 的文档，发现之前有很多地方都是不太符合设计规范的，正好的这个时候 vue 2.0 也将要发布，于是便开始计划基于vue2.0 material design 组件，首先我把 <a href="http://www.material-ui.com/" target="_blank" rel="noopener">material-ui</a> 的源码看了很多遍，因为它是目前为止material最好的实现。三个月的时间里，晚上或是周末的时间基本都在家coding，国庆回家的时候高铁上台太过无聊，于是打开电脑开始coding…. 终于在 11 中旬发布了 <a href="https://github.com/museui/muse-ui" target="_blank" rel="noopener">Muse UI</a> 的第一个版本，中间也写过一篇博客记录组件的开发 <a href="http://www.myronliu.com/2016/09/18/vue/vue_ripple/" target="_blank" rel="noopener">vue 开发波纹点击特效组件</a> 。</p>
+<p>Muse UI 发布之后获得了许多人的关注，所以特别感谢支持它的每一位开发者，后来的维护工作比开发复杂的多，好多的组件都反复修改，弹层框相关的组件我都完整重构过，感谢开源社区的强大，也收到很多开发者的 pr 和 issues，后面英文文档翻译都是 <a href="https://github.com/linxiaowu66" target="_blank" rel="noopener">LinGuang</a> 、 <a href="https://github.com/tohjustin" target="_blank" rel="noopener">Justin Toh</a> 帮我完成的。</p>
+<h2 id="零零碎碎的一些"><a href="#零零碎碎的一些" class="headerlink" title="零零碎碎的一些"></a>零零碎碎的一些</h2><p>2016 还有好多的事情：</p>
+<ul>
+<li><p>编辑器最终选择了 Atom: <a href="http://www.myronliu.com/2016/04/09/atom%E8%BF%99%E4%B8%AAIDE%E6%9C%89%E7%82%B9%E9%85%B7/" target="_blank" rel="noopener">atom这个IDE有点酷</a></p>
+</li>
+<li><p>赶了波潮流，玩了下微信小程序: <a href="http://www.myronliu.com/2016/09/26/wechat/wechat_start/" target="_blank" rel="noopener">微信小程序开发初体验</a> </p>
+</li>
+<li><p>参加过一次 html5 的培训：</p>
+<ul>
+<li><a href="http://www.myronliu.com/2016/05/31/html5/html5%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5/" target="_blank" rel="noopener">html5网络连接</a></li>
+<li><a href="http://www.myronliu.com/2016/05/31/html5/html5%E8%AE%BE%E5%A4%87api/" target="_blank" rel="noopener">html5设备api</a></li>
+<li><a href="http://www.myronliu.com/2016/05/30/html5/html5%E7%A6%BB%E7%BA%BF%E5%AD%98%E5%82%A8/" target="_blank" rel="noopener">html5离线存储</a></li>
+<li><a href="http://www.myronliu.com/2016/05/29/html5/html5%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/" target="_blank" rel="noopener">html5 语义化</a></li>
+</ul>
+</li>
+<li><p>基本用使用 ES6 进行开发了：</p>
+<ul>
+<li><a href="http://www.myronliu.com/2016/08/16/javscript/ES6%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B(%E4%B8%80" target="_blank" rel="noopener">ES6的二三事(一)</a>/)</li>
+<li><a href="http://www.myronliu.com/2016/08/21/javscript/ES6%E7%9A%84%E4%BA%8C%E4%B8%89%E4%BA%8B(%E4%BA%8C" target="_blank" rel="noopener">ES6的二三事(二)-模块化</a>%EF%BC%8D%E6%A8%A1%E5%9D%97%E5%8C%96/)</li>
+</ul>
+</li>
+<li><p>终于能够熟练使用 webpack、rollup、eslint、karama 这些工具了：</p>
+<ul>
+<li><a href="http://www.myronliu.com/2016/08/12/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/node_npm_update/" target="_blank" rel="noopener">node 和 npm 版本升级</a></li>
+<li><a href="http://www.myronliu.com/2016/08/09/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/2016-08-09/" target="_blank" rel="noopener">npm 发布一个自己的包</a></li>
+<li><a href="http://www.myronliu.com/2016/08/07/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/2016-08-07/" target="_blank" rel="noopener">使用 rollup 打包你的 ES6 代码</a></li>
+<li><a href="http://www.myronliu.com/2016/08/10/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/javascript_unit/" target="_blank" rel="noopener">javascript单元测试实践</a></li>
+<li><a href="http://www.myronliu.com/2016/04/05/editorconfig%E5%92%8CEslint%E8%A7%84%E8%8C%83%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91/" target="_blank" rel="noopener">editorconfig和Eslint规范代码编辑</a></li>
+</ul>
+</li>
+<li><p>读过几本书</p>
+</li>
+<li><p>有过一次说走就走的旅行——厦门</p>
+</li>
+</ul>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>好久没写博客，年终总结居然花了两天才写完，希望在2017年，自己能够坚持阅读、运动、写博客。。。希望 Vue 越来越好，希望可以在公司顺利推行 Vue2.0，我也会将Muse UI 打磨的越来越完善。</p>
+<p>最后，希望世界和平 ！！！</p>
+<blockquote>
+<p><a href="https://gold.xitu.io/post/587f0e7a5c497d0058bcabd7" target="_blank" rel="noopener">掘金年度征文 | 2016 与我的技术之路</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/12/29/随笔/2016/">不断折腾的2016 | 掘金技术征文</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Myron Liu 的个人博客">Myron Liu</a></p>
+        <p><span>发布时间:</span>2016年12月29日 - 09时00分</p>
+        <p><span>最后更新:</span>2018年11月25日 - 14时42分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/29/随笔/2016/" title="不断折腾的2016 | 掘金技术征文">https://myronliu.com/2016/12/29/随笔/2016/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://myronliu.com/2016/12/29/随笔/2016/　　作者: Myron Liu" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/01/31/vue/vue_mixins_directive/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          关于 Vue Mixin 和 Directive 的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/12/vue/muse_ui/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Muse UI — Vue2.0 和 Material Design 结合</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-搭建自己的博客"><span class="toc-number">1.</span> <span class="toc-text">Hexo 搭建自己的博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ReactNative-开发尝试"><span class="toc-number">2.</span> <span class="toc-text">ReactNative 开发尝试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和-Vue-的那些事"><span class="toc-number">3.</span> <span class="toc-text">和 Vue 的那些事</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#angular-迁移到-Vue"><span class="toc-number">3.1.</span> <span class="toc-text">angular 迁移到 Vue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发Vue组件库"><span class="toc-number">3.2.</span> <span class="toc-text">开发Vue组件库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#零零碎碎的一些"><span class="toc-number">4.</span> <span class="toc-text">零零碎碎的一些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#End"><span class="toc-number">5.</span> <span class="toc-text">End</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+<link rel="stylesheet" href="/css/gitment.min.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '不断折腾的2016 | 掘金技术征文', // 可选。默认为 location.href
+  owner: 'myronliu347',
+  repo: 'myronliu347.github.io',
+  oauth: {
+    client_id: '036f91611306aeb20459',
+    client_secret: '9ad4d0d67b4682bf95f705542c767d77867765ee',
+  },
+})
+gitment.render('comments')
+</script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/01/31/vue/vue_mixins_directive/" title="上一篇: 关于 Vue Mixin 和 Directive 的使用">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/11/12/vue/muse_ui/" title="下一篇: Muse UI — Vue2.0 和 Material Design 结合">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/01/muse-ui/muse-model-desc/">简化 vuex 的状态管理方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/18/随笔/开源协议/">关于开源许可协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/17/移动web/runtime/">移动端页面多环境运行解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/移动web/css_harline/">移动web 1px边框解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/16/随笔/拖延症/">关于拖延症的一些事</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/vue/vue_webpack_boilerplate/">Vue webpack boilerplate 的一些捣腾</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/31/vue/vue_mixins_directive/">关于 Vue Mixin 和 Directive 的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/29/随笔/2016/">不断折腾的2016 | 掘金技术征文</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/12/vue/muse_ui/">Muse UI — Vue2.0 和 Material Design 结合</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/26/wechat/wechat_start/">微信小程序开发初体验</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/18/vue/vue_ripple/">vue 开发波纹点击特效组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vue/vue_layer/">关于 vue 弹窗组件的一些感想</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/01/移动web/mobile_css/">移动web开发中有用的css片段</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/21/javscript/ES6的二三事(二)－模块化/">ES6的二三事(二)-模块化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/javscript/ES6的二三事(一)/">ES6的二三事(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/12/前端工具/node_npm_update/">node 和 npm 版本升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/10/前端工具/javascript_unit/">javascript单元测试实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/前端工具/2016-08-09/">npm 发布一个自己的包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/07/前端工具/2016-08-07/">使用 rollup 打包你的 ES6 代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/22/react-native/react-native_launch/">react-native 给android端设置启动图</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/react-native/react-native start/">react-native 开始走向mobile开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5网络连接/">html5网络连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/31/html5/html5设备api/">html5设备api</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/html5/html5离线存储/">html5离线存储</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/html5/html5语义化标签/">HTML5 语义化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/29/webapp/webapp_dev2/">webapp 性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/webapp/webapp_dev1/">最简单的webapp开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/14/webapp/webapp_mobile_page/">关于webapp开发——移动端页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/01/js缓存封装/">js缓存封装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/前端工具/atom这个IDE有点酷/">atom这个IDE有点酷</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/05/editorconfig和Eslint规范代码编辑/">editorconfig和Eslint规范代码编辑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/javascript作用域和闭包/">javascript作用域与闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/javscript/如何写一个完善的jquery ui组件/">如何写一个完善的jquery ui组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/29/javscript/javascript数据驱动页面/">javascript数据驱动页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/24/hexo-coding搭建自己的博客/">hexo+coding搭建自己的博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/23/javscript/javascript面向对象编程/">javascript面向对象编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(二)--commonjs,AMD,CMD/">javascript模块化编程(二)--commonjs,AMD,CMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/21/javscript/javascript模块化编程(一)/">javascript模块化编程(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-BFC和IFC/">css布局-BFC和IFC</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/04/css/css布局-盒模型，定位和浮动/">css布局-盒模型，定位和浮动</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/06/javscript/javascript类工厂构建/">javascript类工厂构建</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/前端seo优化/">前端seo优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/移动web/Yahoo军规/">前端代码规范(YaHoo军规)</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/16/前端工具/sublime常用的插件介绍/">sublime常用的插件介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/javscript/javascript异步处理/">javascript异步处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/15/前端工具/sublime自定义代码提示/">sublime自定义代码提示</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime功能介绍/">sublime功能介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/14/前端工具/sublime常用快捷键/">sublime常用快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/09/javscript/javascript类型判断/">javascript类型判断</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/13/移动web/移动web开发准备工作/">移动web开发准备工作</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Myron Liu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
